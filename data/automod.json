@@ -1,0 +1,626 @@
+{
+  "1518254808157524179": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1534630306521419928": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1533553772125749298": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1452783075653193932": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1524134148250272007": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1528712907183886476": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1495191087306768574": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1422894216157200407": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1514999141028331690": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1536083691493789776": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1532863151308275812": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1526321070695645334": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1523352180365594765": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1515359946215002373": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1536387785676562432": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  },
+  "1536076234294034513": {
+    "enabled": false,
+    "words": [],
+    "rules": {
+      "invites": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "links": {
+        "enabled": false,
+        "action": "delete"
+      },
+      "caps": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 70,
+        "minLength": 12
+      },
+      "mentionSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 5
+      },
+      "emojiSpam": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 10
+      },
+      "duplicate": {
+        "enabled": false,
+        "action": "delete",
+        "threshold": 4,
+        "timeframe": 10000
+      }
+    },
+    "whitelistChannels": [],
+    "whitelistRoles": [],
+    "logChannelId": null
+  }
+}

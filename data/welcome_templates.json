@@ -1,0 +1,50 @@
+{
+  "1276884559467643042": {
+    "welcome": {
+      "name": "welcome",
+      "content": "🎉 Welcome, {user}!",
+      "title": "Welcome to {server_name}!",
+      "description": "**Hey {user_display}, glad you're here!\nread rules before chatting.**",
+      "author": null,
+      "footer": "You are member #{server_membercount}",
+      "color": "#5865F2",
+      "thumbnail": "{user_avatar}",
+      "image": "https://cdn.discordapp.com/attachments/1535470913536139388/1535649918423932938/3ffqs5s.gif?ex=6a7888ef&is=6a77376f&hm=f958cf98c7fd20fcf7732b67985a9668c14d106f93bf963bef8a4551c18d6cc2&",
+      "fields": null,
+      "createdAt": 1786197816512,
+      "updatedAt": 1786197916770
+    }
+  },
+  "1045930352276938773": {
+    "{user}": {
+      "name": "{user}",
+      "content": "🎉 Welcome, {user}!",
+      "title": "Welcome to {server_name}!",
+      "description": "Hey {user_display}, glad you're here! 🎉\n\n✦ Check out the rules\n✦ Grab some roles\n✦ Introduce yourself!",
+      "author": null,
+      "footer": "You are member #{server_membercount}",
+      "color": "#00000",
+      "thumbnail": "{user_avatar}",
+      "image": null,
+      "fields": null,
+      "createdAt": 1785736748114,
+      "updatedAt": 1785736835779
+    }
+  },
+  "1463540599880814743": {
+    "Welcome": {
+      "name": "Welcome",
+      "content": "you chud {user} ———- Read the rules, respect everyone, and keep the server active.",
+      "title": "Welcome to VINZ",
+      "description": "Hey {user_display}, we welcome you, you CHUD \n\n✦ Check out the rules\n\n✦ be active",
+      "author": null,
+      "footer": "You are member #{server_membercount}",
+      "color": "#0000ff",
+      "thumbnail": "{user_avatar}",
+      "image": "https://klipy.com/gifs/goatis-sverige",
+      "fields": null,
+      "createdAt": 1785960189847,
+      "updatedAt": 1785960493921
+    }
+  }
+}

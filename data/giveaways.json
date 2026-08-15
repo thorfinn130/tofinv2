@@ -1,0 +1,53 @@
+{
+  "active": {
+    "1523737089185808475": {
+      "guildId": "1518254808157524179",
+      "channelId": "1523735586840645843",
+      "messageId": "1523737089185808475",
+      "prize": "nitro",
+      "winnerCount": 1,
+      "endsAt": 1783358231330,
+      "hostId": "1276884559467643042",
+      "requiredRoleId": null,
+      "requiredLevel": null,
+      "winnersRoleId": null,
+      "color": null,
+      "endColor": null,
+      "winMsg": null,
+      "dmMsg": null,
+      "ended": true,
+      "winnerIds": [],
+      "entries": []
+    },
+    "1529319389164343339": {
+      "guildId": "1513197860013998090",
+      "channelId": "1514338942126653571",
+      "messageId": "1529319389164343339",
+      "prize": "1m owo",
+      "winnerCount": 2,
+      "endsAt": 1785552555359,
+      "hostId": "1276884559467643042",
+      "requiredRoleId": null,
+      "requiredLevel": null,
+      "winnersRoleId": null,
+      "color": null,
+      "endColor": null,
+      "winMsg": null,
+      "dmMsg": null,
+      "ended": true,
+      "winnerIds": [
+        "913512348042547260",
+        "1336581885349859382"
+      ],
+      "entries": [
+        "1343396618589700126",
+        "913512348042547260",
+        "1119987112201162762",
+        "1336581885349859382",
+        "1294534498607824988",
+        "1406391474324770966"
+      ]
+    }
+  },
+  "config": {}
+}

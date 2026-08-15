@@ -1,0 +1,2065 @@
+{
+  "1524134148250272007": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1518254808157524179": {
+    "enabled": true,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1422894216157200407": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1513197860013998090": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1526321070695645334": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1474152808965083138": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1477421682477236418": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1452783075653193932": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1502661372708786300": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1527237389557170187": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1523352180365594765": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1528064558218875090": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1531390930236608716": {
+    "enabled": true,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1512999188139610193": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1532863151308275812": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1515359946215002373": {
+    "enabled": true,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1533553772125749298": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1518229548636835900": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1534630306521419928": {
+    "enabled": true,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1528712907183886476": {
+    "enabled": true,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1495191087306768574": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1514999141028331690": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1536083691493789776": {
+    "enabled": true,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1536387785676562432": {
+    "enabled": false,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  },
+  "1536076234294034513": {
+    "enabled": true,
+    "modules": {
+      "channelCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "channelDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleCreate": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "roleDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "webhookCreate": {
+        "threshold": 3,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "botAdd": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "kick",
+        "enabled": true
+      },
+      "memberKick": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "memberBan": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "messageSpam": {
+        "threshold": 15,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "mentionSpam": {
+        "threshold": 10,
+        "timeframe": 3000,
+        "action": "timeout",
+        "enabled": true
+      },
+      "permissionEscalation": {
+        "threshold": 2,
+        "timeframe": 10000,
+        "action": "strip_roles",
+        "enabled": true
+      },
+      "emojiDelete": {
+        "threshold": 5,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      },
+      "prune": {
+        "threshold": 1,
+        "timeframe": 5000,
+        "action": "ban",
+        "enabled": true
+      }
+    },
+    "whitelist": {
+      "users": [],
+      "roles": []
+    },
+    "staffChannelId": null,
+    "ownerId": null
+  }
+}

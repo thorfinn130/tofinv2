@@ -1,0 +1,20 @@
+{
+  "1532863151308275812": {
+    "channelId": "1532866789426462731",
+    "templateOwner": "1276884559467643042",
+    "templateName": "wlc",
+    "enabled": true
+  },
+  "1533553772125749298": {
+    "channelId": "1533600489483014174",
+    "templateOwner": "1045930352276938773",
+    "templateName": "{user}",
+    "enabled": true
+  },
+  "1534630306521419928": {
+    "channelId": "1535470913536139388",
+    "templateOwner": "1276884559467643042",
+    "templateName": "welcome",
+    "enabled": true
+  }
+}
