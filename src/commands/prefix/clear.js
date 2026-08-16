@@ -2,8 +2,8 @@ const { success, warn } = require("../../util/embed");
 const { clear, getQueueInfo } = require("../../services/music");
 
 module.exports = {
-  name: "tclear",
-  aliases: ["clearqueue"],
+  name: "clear",
+  aliases: ["tclear", "clearqueue"],
   async run(message) {
     const qInfo = getQueueInfo(message.guild.id);
     if (qInfo.queue.length === 0) {

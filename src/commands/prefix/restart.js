@@ -2,7 +2,8 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFl
 const { danger } = require("../../util/embed");
 
 module.exports = {
-  name: "trestart",
+  name: "restart",
+  aliases: ["trestart"],
   async run(message) {
     // ── Owner only ────────────────────────────────────────────────────────────
     if (message.author.id !== message.guild.ownerId) {

@@ -14,14 +14,65 @@ function disableAll(row) {
 async function handleHelpCat(interaction) {
   const [, userId] = interaction.customId.split(":");
   if (interaction.user.id !== userId) {
-    return interaction.reply({ content: "❌ Run `,thelp` yourself to use the menu!", ephemeral: true });
+    return interaction.reply({ content: "❌ Run `,help` yourself to use the menu!", ephemeral: true });
   }
 
-  const { categoryEmbed, buildMenu } = require("../commands/prefix/thelp");
+  const { categoryEmbed, buildMenu } = require("../commands/prefix/help");
   const selected = interaction.values[0];
+  const who = { username: interaction.user.username, avatarURL: interaction.client.user.displayAvatarURL() };
   return interaction.update({
-    embeds: [categoryEmbed(selected, interaction.user)],
+    embeds: [categoryEmbed(selected, who)],
     components: [buildMenu(userId, selected)],
+  });
+}
+
+// ── Command toggle menu (,disable list / ,enable list) ───────────────────────
+async function handleDisableCategory(interaction) {
+  if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+    return interaction.reply({ content: "❌ You need **Administrator** to manage command toggles.", ephemeral: true });
+  }
+  const [, scope, channelToken] = interaction.customId.split(":");
+  const channelId = channelToken === "none" ? null : channelToken;
+  const categoryKey = interaction.values[0];
+
+  const { buildToggleEmbed, buildToggleMenu } = require("../commands/prefix/disable");
+  return interaction.update({
+    embeds: [buildToggleEmbed(interaction.guild, categoryKey, scope, channelId)],
+    components: buildToggleMenu(interaction.guild.id, categoryKey, scope, channelId),
+  });
+}
+
+async function handleDisableToggle(interaction) {
+  if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+    return interaction.reply({ content: "❌ You need **Administrator** to manage command toggles.", ephemeral: true });
+  }
+  const [, categoryKey, scope, channelToken] = interaction.customId.split(":");
+  const channelId = channelToken === "none" ? null : channelToken;
+
+  const CATEGORIES = require("../util/commandCategories");
+  const { setCategoryState } = require("../services/commandToggle");
+  const { buildToggleEmbed, buildToggleMenu } = require("../commands/prefix/disable");
+
+  setCategoryState(interaction.guild.id, CATEGORIES[categoryKey].commands, interaction.values, channelId);
+
+  return interaction.update({
+    embeds: [buildToggleEmbed(interaction.guild, categoryKey, scope, channelId)],
+    components: buildToggleMenu(interaction.guild.id, categoryKey, scope, channelId),
+  });
+}
+
+async function handleDisableBack(interaction) {
+  if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+    return interaction.reply({ content: "❌ You need **Administrator** to manage command toggles.", ephemeral: true });
+  }
+  const [, scope, channelToken] = interaction.customId.split(":");
+  const channelId = channelToken === "none" ? null : channelToken;
+  const channel = channelId ? interaction.guild.channels.cache.get(channelId) : null;
+
+  const { buildOverviewEmbed, buildCategoryMenu } = require("../commands/prefix/disable");
+  return interaction.update({
+    embeds: [buildOverviewEmbed(interaction.guild, channel)],
+    components: [buildCategoryMenu(scope, channelId)],
   });
 }
 
@@ -70,18 +121,18 @@ async function handleTrestart(interaction) {
   // Kick all bots (except ourselves)
   const botsToKick = guild.members.cache.filter(m => m.user.bot && m.id !== botId);
   for (const [, member] of botsToKick) {
-    await member.kick("Server restart: trestart").catch(() => {});
+    await member.kick("Server restart: ,restart").catch(() => {});
   }
 
   // Delete all channels
   for (const [, ch] of guild.channels.cache) {
-    await ch.delete("Server restart: trestart").catch(() => {});
+    await ch.delete("Server restart: ,restart").catch(() => {});
   }
 
   // Delete all non-managed, non-everyone roles
   for (const [, role] of guild.roles.cache) {
     if (role.name === "@everyone" || role.managed || role.id === guild.id) continue;
-    await role.delete("Server restart: trestart").catch(() => {});
+    await role.delete("Server restart: ,restart").catch(() => {});
   }
 
   // DM the owner since channels are gone
@@ -402,10 +453,13 @@ async function handle(interaction) {
       if (action.startsWith("wlc_")) return handleWelcomeBuilder(interaction);
       if (action.startsWith("gw_")) return handleGiveawayButton(interaction);
       if (action.startsWith("cp_"))  return handleColorPicker(interaction);
+      if (action === "dis_back") return handleDisableBack(interaction);
     }
     if (interaction.isStringSelectMenu()) {
       const action = interaction.customId.split(":")[0];
       if (action === "help_cat") return handleHelpCat(interaction);
+      if (action === "dis_cat") return handleDisableCategory(interaction);
+      if (action === "dis_toggle") return handleDisableToggle(interaction);
     }
   } catch (err) {
     console.error("[interaction handler]", err);

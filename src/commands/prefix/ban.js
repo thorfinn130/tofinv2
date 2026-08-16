@@ -4,14 +4,15 @@ const { tempBan } = require("../../services/moderation");
 const { success, danger, warn } = require("../../util/embed");
 
 module.exports = {
-  name: "tban",
+  name: "ban",
+  aliases: ["tban"],
   async run(message, args) {
     if (!message.member.permissions.has(PermissionFlagsBits.BanMembers)) {
       return message.reply({ embeds: [danger("Missing Permission", "Permission: (Ban Members)")] });
     }
 
     if (!args.length) {
-      return message.reply({ embeds: [warn("Missing User", "**Usage:** `,tban <user(s)> [duration] [reason]`\n**Examples:**\n`,tban @John 1d breaking rules`\n`,tban 123456789012345678 2h spam`\n`,tban @John 123456789012345678 1d`")] });
+      return message.reply({ embeds: [warn("Missing User", "**Usage:** `,ban <user(s)> [duration] [reason]`\n**Examples:**\n`,ban @John 1d breaking rules`\n`,ban 123456789012345678 2h spam`\n`,ban @John 123456789012345678 1d`")] });
     }
 
     // ── Parse users (mentions or IDs) ──
@@ -81,28 +82,16 @@ module.exports = {
     }
 
     // ── Build response ──
-    const successCount = results.filter(r => r.success).length;
-    const failCount = results.length - successCount;
+    const failed = results.filter(r => !r.success);
 
-    const embed = success(
-      "Ban Result",
-      `Banned **${successCount}** user${successCount !== 1 ? "s" : ""}${failCount ? `, failed **${failCount}**` : ""}\n` +
-      `Duration: ${durationText}\nReason: ${reason}`
-    );
-
-    // Add details for each (truncate if too long)
-    const details = results.map(r =>
-      r.success
-        ? `✅ **${r.userTag}** (${r.userId})`
-        : `❌ **${r.userTag}** (${r.userId}) — ${r.error}`
-    ).join("\n");
-
-    if (details.length > 1024) {
-      embed.addFields({ name: "Details (truncated)", value: details.slice(0, 1021) + "…" });
-    } else {
-      embed.addFields({ name: "Details", value: details });
+    if (!failed.length) {
+      return message.reply("👌");
     }
 
-    return message.reply({ embeds: [embed] });
+    // Some failed — keep it short, just flag who didn't go through
+    const details = failed.map(r => `❌ **${r.userTag}** — ${r.error}`).join("\n");
+    return message.reply({
+      embeds: [warn("Some Failed", `👌 Banned ${results.length - failed.length}/${results.length}\n${details.length > 1000 ? details.slice(0, 997) + "…" : details}`)],
+    });
   },
 };

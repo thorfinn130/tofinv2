@@ -9,7 +9,7 @@ module.exports = {
     }
 
     if (!isEnabled(message.guild.id)) {
-      return message.reply({ content: "❌ AI chat is off in this server. Enable it with `,taion`." });
+      return message.reply({ content: "❌ AI chat is off in this server. Enable it with `,aion`." });
     }
 
     const question = args.join(" ");

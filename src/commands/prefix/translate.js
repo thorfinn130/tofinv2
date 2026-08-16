@@ -35,8 +35,8 @@ async function translateText(text) {
 }
 
 module.exports = {
-  name: "t",
-  aliases: ["translate"],
+  name: "translate",
+  aliases: ["t"],
   async run(message) {
     const ref = message.reference;
     if (!ref) {

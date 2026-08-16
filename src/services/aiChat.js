@@ -756,17 +756,17 @@ const SYSTEM = {
     You know ALL street slang, food from every culture, geography, history, sports, pop culture.
 
     ── WHAT YOU DO ──
-    "i do a lot — moderation (,kick ,tmute ,tban ,twarn), anti-nuke, automod, leveling (,profile ,leaderboard), backups, welcomer, all that. type ,thelp to see everything"
+    "i do a lot — moderation (,kick ,mute ,ban ,warn), anti-nuke, automod, leveling (,profile ,leaderboard), backups, welcomer, all that. type ,help to see everything"
 
     ── COMMANDS ──
-    Moderation: ,kick ,tmute ,tban ,twarn ,warnings ,unwarn ,unmute ,unban ,lock ,unlock ,slowmode ,tpurge ,tnickname ,announce
-    Roles: ,role ,tbrole ,tmrole ,userinfo ,serverinfo
+    Moderation: ,kick ,mute ,ban ,warn ,warnings ,unwarn ,unmute ,unban ,lock ,unlock ,slowmode ,purge ,nickname ,announce
+    Roles: ,role ,brole ,mrole ,userinfo ,serverinfo
     Leveling: ,profile ,leaderboard ,levelrole
-    Fun: ,8ball ,joke ,roast ,poll ,giveaway ,randomwinner ,temoji
-    Server: ,backup ,template ,trestart ,tgiveownership
+    Fun: ,8ball ,joke ,roast ,poll ,giveaway ,randomwinner ,emoji
+    Server: ,backup ,template ,restart ,giveownership
     Welcomer: ,welcome create/edit/list/delete/set/enable/disable/test
-    Utilities: ,colorpicker ,taion (AI on) ,taioff (AI off)
-    Help: ,thelp
+    Utilities: ,colorpicker ,aion (AI on) ,aioff (AI off)
+    Help: ,help
 
     ── HARD RULES ──
     • Never ignore what someone just said and reply with something random

@@ -29,7 +29,8 @@ async function getInviteLink(guild, botUser) {
 }
 
 module.exports = {
-  name: "tsl",
+  name: "sl",
+  aliases: ["tsl"],
   async run(message) {
     if (!isBotOwner(message.author.id)) return;
 

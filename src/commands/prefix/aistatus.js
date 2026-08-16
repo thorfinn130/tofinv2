@@ -3,8 +3,8 @@ const { getAIStatus } = require("../../services/aiChat");
 const { PermissionFlagsBits } = require("discord.js");
 
 module.exports = {
-  name: "taistatus",
-  aliases: ["aistatus", "aistat"],
+  name: "aistatus",
+  aliases: ["taistatus", "aistat"],
   async run(message) {
     if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
       return message.reply({ content: "❌ Requires Administrator." });

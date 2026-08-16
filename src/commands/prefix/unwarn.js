@@ -1,6 +1,6 @@
 const { PermissionFlagsBits } = require("discord.js");
 const { removeWarning, getWarnings } = require("../../services/moderation");
-const { success, danger, warn, info } = require("../../util/embed");
+const { danger, warn, info } = require("../../util/embed");
 
 module.exports = {
   name: "unwarn",
@@ -30,8 +30,6 @@ module.exports = {
       return message.reply({ embeds: [danger("Error", "Could not remove that warning.")] });
     }
 
-    return message.reply({
-      embeds: [success("Warning Removed", `Removed warning **#${index}** from ${user}.\nReason was: *${result.removed.reason}*\nRemaining warnings: **${result.list.length}**`)],
-    });
+    return message.reply("👌");
   },
 };

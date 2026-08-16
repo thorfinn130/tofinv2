@@ -1,7 +1,8 @@
 const { setEnabled } = require("../../services/aiChat");
 
 module.exports = {
-  name: "taion",
+  name: "aion",
+  aliases: ["taion"],
   async run(message) {
     if (!message.member.permissions.has("ManageGuild")) {
       return message.reply("❌ You need **Manage Server** permission to do that.");

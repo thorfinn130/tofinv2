@@ -1,6 +1,6 @@
 const { PermissionFlagsBits } = require("discord.js");
 const { getConfig, getActiveJail, clearActiveJail } = require("../../services/jail");
-const { success, danger, warn } = require("../../util/embed");
+const { danger, warn } = require("../../util/embed");
 
 module.exports = {
   name: "unjail",
@@ -27,6 +27,6 @@ module.exports = {
 
     clearActiveJail(message.guild.id, target.id);
 
-    return message.reply({ embeds: [success("Unjailed", `**${target.user.tag}** has been released and had their previous roles restored.`)] });
+    return message.reply("👌");
   },
 };

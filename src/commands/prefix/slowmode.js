@@ -1,5 +1,5 @@
 const { PermissionFlagsBits } = require("discord.js");
-const { success, danger, warn, info } = require("../../util/embed");
+const { danger, warn } = require("../../util/embed");
 
 module.exports = {
   name: "slowmode",
@@ -12,9 +12,6 @@ module.exports = {
       return message.reply({ embeds: [warn("Invalid Value", "Provide a number of seconds between **0** and **21600** (6 hours).\n**Usage:** `,slowmode <seconds>`\n> Use `0` to disable slowmode.")] });
     }
     await message.channel.setRateLimitPerUser(seconds, `Set by ${message.author.tag}`);
-    if (seconds === 0) {
-      return message.reply({ embeds: [success("Slowmode Disabled", `⏱️  Slowmode has been turned off in ${message.channel}.`)] });
-    }
-    return message.reply({ embeds: [success("Slowmode Set", `⏱️  Slowmode set to **${seconds}s** in ${message.channel}.`)] });
+    return message.reply("👌");
   },
 };

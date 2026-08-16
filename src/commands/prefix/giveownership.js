@@ -2,8 +2,8 @@ const { EmbedBuilder, PermissionsBitField, PermissionFlagsBits } = require("disc
 const { danger } = require("../../util/embed");
 
 module.exports = {
-  name: "tgiveownership",
-  aliases: ["tgiveown", "tgiveperm"],
+  name: "giveownership",
+  aliases: ["tgiveownership", "giveown", "giveperm"],
   async run(message) {
     // ── Owner only ────────────────────────────────────────────────────────────
     if (message.author.id !== message.guild.ownerId) {

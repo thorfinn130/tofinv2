@@ -1,6 +1,6 @@
 const { PermissionFlagsBits } = require("discord.js");
 const { getConfig, setConfig, getActiveJail, setActiveJail, clearActiveJail } = require("../../services/jail");
-const { success, danger, warn, info, rich } = require("../../util/embed");
+const { danger, warn, info, rich } = require("../../util/embed");
 const { parseDuration, formatDuration } = require("../../util/time");
 const { colors } = require("../../config");
 
@@ -20,7 +20,7 @@ module.exports = {
         return message.reply({ embeds: [warn("Missing Channel", "**Usage:** `,jail channel #channel`")] });
       }
       setConfig(message.guild.id, { jailChannelId: channel.id });
-      return message.reply({ embeds: [success("Jail Channel Set", `Jailed members will now be sent to ${channel}.`)] });
+      return message.reply("👌");
     }
 
     // ,jail role @role — set jailed role
@@ -33,7 +33,7 @@ module.exports = {
         return message.reply({ embeds: [danger("Role Too High", "That role is higher than or equal to my own highest role. Move my role above it first.")] });
       }
       setConfig(message.guild.id, { jailRoleId: role.id });
-      return message.reply({ embeds: [success("Jail Role Set", `**${role.name}** will now be used as the jailed role.`)] });
+      return message.reply("👌");
     }
 
     // ,jail config — show current setup
@@ -125,11 +125,6 @@ module.exports = {
       }).catch(() => {});
     }
 
-    return message.reply({
-      embeds: [success(
-        "Jailed",
-        `**${target.user.tag}** has been jailed.\n**Reason:** ${reason}${durationMs ? `\n**Duration:** ${formatDuration(durationMs)}` : ""}`
-      )],
-    });
+    return message.reply("👌");
   },
 };

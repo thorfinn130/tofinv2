@@ -2,8 +2,8 @@ const { success, warn } = require("../../util/embed");
 const { removeFromQueue, getQueueInfo } = require("../../services/music");
 
 module.exports = {
-  name: "tremove",
-  aliases: ["remove"],
+  name: "remove",
+  aliases: ["tremove"],
   async run(message, args) {
     const index = parseInt(args[0]);
     if (!index || index < 1) {

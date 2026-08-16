@@ -1,5 +1,5 @@
 const { PermissionFlagsBits } = require("discord.js");
-const { success, danger } = require("../../util/embed");
+const { danger } = require("../../util/embed");
 
 module.exports = {
   name: "lock",
@@ -38,15 +38,6 @@ module.exports = {
       }
     );
 
-    return message.reply({
-      embeds: [
-        success(
-          locking ? "Channel Locked 🔒" : "Channel Unlocked 🔓",
-          locking
-            ? `${message.channel} has been locked. Members can no longer send messages, react, or create threads.`
-            : `${message.channel} has been unlocked. Permissions have been restored.`
-        ),
-      ],
-    });
+    return message.reply("👌");
   },
 };

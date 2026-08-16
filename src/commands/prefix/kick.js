@@ -1,5 +1,5 @@
 const { PermissionFlagsBits } = require("discord.js");
-const { success, danger, warn } = require("../../util/embed");
+const { danger, warn } = require("../../util/embed");
 
 module.exports = {
   name: "kick",
@@ -50,20 +50,15 @@ module.exports = {
       }
     }
 
-    const successCount = results.filter((r) => r.success).length;
-    const failCount = results.length - successCount;
+    const failed = results.filter((r) => !r.success);
 
-    const embed = success(
-      "Kick Result",
-      `Kicked **${successCount}** member${successCount !== 1 ? "s" : ""}${failCount ? `, failed **${failCount}**` : ""}\n**Reason:** ${reason}`
-    );
+    if (!failed.length) {
+      return message.reply("👌");
+    }
 
-    const details = results.map((r) =>
-      r.success ? `✅  **${r.tag}**` : `❌  **${r.tag}** — ${r.error}`
-    ).join("\n");
-
-    embed.addFields({ name: "Details", value: details.length > 1024 ? details.slice(0, 1021) + "…" : details });
-
-    return message.reply({ embeds: [embed] });
+    const details = failed.map((r) => `❌  **${r.tag}** — ${r.error}`).join("\n");
+    return message.reply({
+      embeds: [warn("Some Failed", `👌 Kicked ${results.length - failed.length}/${results.length}\n${details.length > 1000 ? details.slice(0, 997) + "…" : details}`)],
+    });
   },
 };

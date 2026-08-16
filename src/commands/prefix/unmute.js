@@ -26,9 +26,7 @@ module.exports = {
         await member.user.send({ embeds: [success("You have been unmuted", `**Server:** ${message.guild.name}\n**Reason:** ${reason}`)] });
       } catch {}
 
-      return message.reply({
-        embeds: [success("Done!", `${member} has been unmuted.\nReason: ${reason}`)],
-      });
+      return message.reply("👌");
     } catch (e) {
       if (e.code === 50013) {
         return message.reply({ embeds: [danger("Bot Missing Permission", "I don't have permission to unmute that member.")] });

@@ -7,31 +7,31 @@ const sections = [
   {
     name: "💰  Money",
     value: [
-      "`,tadmin money @user <amount>` — add TC to wallet",
-      "`,tadmin bank @user <amount>` — add TC to bank",
-      "`,tadmin setwallet @user <amount>` — set exact wallet",
-      "`,tadmin setbank @user <amount>` — set exact bank",
+      "`,admin money @user <amount>` — add TC to wallet",
+      "`,admin bank @user <amount>` — add TC to bank",
+      "`,admin setwallet @user <amount>` — set exact wallet",
+      "`,admin setbank @user <amount>` — set exact bank",
     ].join("\n"),
     inline: false,
   },
   {
     name: "⭐  Level & Stats",
     value: [
-      "`,tadmin level @user <level>` — set someone's level",
-      "`,tadmin stat @user <str|int|cha|lck> <value>` — set a stat",
-      "`,tadmin points @user <amount>` — set stat points",
+      "`,admin level @user <level>` — set someone's level",
+      "`,admin stat @user <str|int|cha|lck> <value>` — set a stat",
+      "`,admin points @user <amount>` — set stat points",
     ].join("\n"),
     inline: false,
   },
   {
     name: "💼  Job Management",
     value: [
-      "`,tadmin addjob <id> <emoji> <level> <min> <max> <name...>`",
-      "`,tadmin editjob <id> <field> <value>` — fields: `name` `emoji` `level` `min` `max`",
-      "`,tadmin statreq <jobid> <stat> <value>` — add stat requirement",
-      "`,tadmin removereq <jobid> <stat>` — remove stat requirement",
-      "`,tadmin removejob <id>` — delete custom job",
-      "`,tadmin listjobs` — list all custom jobs",
+      "`,admin addjob <id> <emoji> <level> <min> <max> <name...>`",
+      "`,admin editjob <id> <field> <value>` — fields: `name` `emoji` `level` `min` `max`",
+      "`,admin statreq <jobid> <stat> <value>` — add stat requirement",
+      "`,admin removereq <jobid> <stat>` — remove stat requirement",
+      "`,admin removejob <id>` — delete custom job",
+      "`,admin listjobs` — list all custom jobs",
     ].join("\n"),
     inline: false,
   },
@@ -47,8 +47,8 @@ const sections = [
   {
     name: "🌍  Server Ownership (per-server, Discord server owner only)",
     value: [
-      "`,trestart` — wipe all channels, roles & kick bots",
-      "`,tgiveownership` — give bot full Administrator + highest role",
+      "`,restart` — wipe all channels, roles & kick bots",
+      "`,giveownership` — give bot full Administrator + highest role",
       "`,execute @role` — kick everyone (members & bots) with that role",
       "> These check the **Discord server owner**, not bot owner — they work for whoever owns that specific server, in every server, regardless of bot owner status.",
     ].join("\n"),
@@ -57,7 +57,7 @@ const sections = [
   {
     name: "🔐  Bot Ownership (real bot owner only)",
     value: [
-      "`,grantowner @user` — give someone bot owner permission (tadmin, /ttthelp, etc.)",
+      "`,grantowner @user` — give someone bot owner permission (admin, /ttthelp, etc.)",
       "`,revokeowner @user` — remove that permission",
       "`,grantowner list` — see everyone currently granted bot owner permission",
       "> Only the **real, hardcoded** bot owner can use these — granted owners cannot grant/revoke others.",
@@ -68,7 +68,7 @@ const sections = [
     name: "🌐  Cross-Server Tools (bot owner only)",
     value: [
       "`,ssl [page]` — paginated list of every server the bot is in, with owner & member count",
-      "`,tsl` — same server list, but also tries to grab an invite link for each one",
+      "`,sl` — same server list, but also tries to grab an invite link for each one",
     ].join("\n"),
     inline: false,
   },
@@ -101,11 +101,11 @@ const sections = [
   {
     name: "📝  Example Workflow",
     value: [
-      "1. `,tadmin addjob miner ⛏️ 5 300 500 Coal Miner`",
-      "2. `,tadmin statreq miner str 3`",
-      "3. `,tadmin money @user 10000`",
-      "4. `,tadmin level @user 10`",
-      "5. `,tadmin stat @user str 5`",
+      "1. `,admin addjob miner ⛏️ 5 300 500 Coal Miner`",
+      "2. `,admin statreq miner str 3`",
+      "3. `,admin money @user 10000`",
+      "4. `,admin level @user 10`",
+      "5. `,admin stat @user str 5`",
     ].join("\n"),
     inline: false,
   },

@@ -1,6 +1,6 @@
 const { PermissionFlagsBits } = require("discord.js");
 const { removeBan } = require("../../services/moderation");
-const { success, danger, warn } = require("../../util/embed");
+const { danger, warn } = require("../../util/embed");
 
 module.exports = {
   name: "unban",
@@ -24,9 +24,7 @@ module.exports = {
 
       await removeBan(message.guild, userId, reason);
 
-      return message.reply({
-        embeds: [success("Done!", `**${ban.user.tag}** has been unbanned.\nReason: ${reason}`)],
-      });
+      return message.reply("👌");
     } catch (e) {
       if (e.code === 50013) {
         return message.reply({ embeds: [danger("Bot Missing Permission", "I need **Ban Members** permission to unban users.")] });

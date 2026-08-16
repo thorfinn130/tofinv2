@@ -1,16 +1,16 @@
-// src/commands/prefix/tantinuke.js
+// src/commands/prefix/antinuke.js
 const {
   getConfig, updateModule, toggleModule, toggleAllModules,
   addWhitelist, removeWhitelist, setConfig,
 } = require('../../services/antiNuke');
 const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
-const { success, danger, warn, info } = require('../../util/embed');
+const { danger, warn, info } = require('../../util/embed');
 
 const MODULES = ['channelCreate', 'channelDelete', 'roleCreate', 'roleDelete', 'webhookCreate', 'botAdd', 'memberKick', 'memberBan', 'messageSpam', 'mentionSpam', 'permissionEscalation', 'emojiDelete', 'prune'];
 
 module.exports = {
-  name: 'tantinuke',
-  aliases: ['antinuke'],
+  name: 'antinuke',
+  aliases: ['tantinuke'],
   async run(message, args) {
     if (!message.member.permissions.has(PermissionFlagsBits.Administrator)) {
       return message.reply({ embeds: [danger('Missing Permission', 'You need Administrator to configure anti-nuke.')] });
@@ -43,7 +43,7 @@ module.exports = {
     if (sub === 'enable' || sub === 'disable') {
       const enabled = sub === 'enable';
       toggleAllModules(guildId, enabled);
-      return message.reply({ embeds: [success(`Anti-Nuke ${enabled ? 'Enabled' : 'Disabled'}`, `All modules are now ${enabled ? 'active' : 'inactive'}.`)] });
+      return message.reply("👌");
     }
 
     // ── module enable/disable ──
@@ -56,19 +56,19 @@ module.exports = {
       if (action === 'enable' || action === 'disable') {
         const enabled = action === 'enable';
         toggleModule(guildId, moduleName, enabled);
-        return message.reply({ embeds: [success(`${moduleName} ${enabled ? 'enabled' : 'disabled'}`, `Module is now ${enabled ? 'active' : 'inactive'}.`)] });
+        return message.reply("👌");
       }
       if (action === 'set') {
         const threshold = parseInt(args[3]);
         const timeframe = parseInt(args[4]);
         const actionType = args[5];
         if (!threshold || !timeframe || !['ban','kick','timeout','strip_roles'].includes(actionType)) {
-          return message.reply({ embeds: [warn('Invalid Params', 'Usage: `,tantinuke module set <module> <threshold> <timeframe> <action>`\nAction: ban, kick, timeout, strip_roles')] });
+          return message.reply({ embeds: [warn('Invalid Params', 'Usage: `,antinuke module set <module> <threshold> <timeframe> <action>`\nAction: ban, kick, timeout, strip_roles')] });
         }
         const updated = updateModule(guildId, moduleName, { threshold, timeframe, action: actionType });
-        return message.reply({ embeds: [success('Module Updated', `**${moduleName}** → threshold: ${updated.threshold}, timeframe: ${updated.timeframe}ms, action: ${updated.action}`)] });
+        return message.reply("👌");
       }
-      return message.reply({ embeds: [warn('Usage', '`,tantinuke module <enable|disable|set> <module> [params]`')] });
+      return message.reply({ embeds: [warn('Usage', '`,antinuke module <enable|disable|set> <module> [params]`')] });
     }
 
     // ── whitelist ──
@@ -80,12 +80,12 @@ module.exports = {
       const id = target.id;
       if (action === 'add') {
         addWhitelist(guildId, type, id);
-        return message.reply({ embeds: [success('Whitelisted', `${target} added to whitelist.`)] });
+        return message.reply("👌");
       } else if (action === 'remove') {
         removeWhitelist(guildId, type, id);
-        return message.reply({ embeds: [success('Removed', `${target} removed from whitelist.`)] });
+        return message.reply("👌");
       } else {
-        return message.reply({ embeds: [warn('Usage', '`,tantinuke whitelist <add|remove> @user` or `,tantinuke whitelist <add|remove> @role`')] });
+        return message.reply({ embeds: [warn('Usage', '`,antinuke whitelist <add|remove> @user` or `,antinuke whitelist <add|remove> @role`')] });
       }
     }
 
@@ -96,7 +96,7 @@ module.exports = {
       const cfg = getConfig(guildId);
       cfg.staffChannelId = channel.id;
       setConfig(guildId, cfg);
-      return message.reply({ embeds: [success('Staff Channel Set', `Alerts will be sent to ${channel}.`)] });
+      return message.reply("👌");
     }
 
     // ── owner (optional) ──

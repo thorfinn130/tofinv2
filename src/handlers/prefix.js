@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { getPrefix } = require("../services/prefixManager");
 const { handleTriggers } = require("../util/greeting");
+const { isDisabled } = require("../services/commandToggle");
 
 const commands = new Map();
 
@@ -48,6 +49,11 @@ async function handle(message) {
   const cmd = commands.get(raw);
   if (!cmd) return;
 
+  // Check by the command's canonical name so disabling "ban" also blocks the "tban" alias
+  if (isDisabled(message.guild.id, message.channel.id, cmd.name)) {
+    return message.reply("🚫 This command is disabled here.").catch(() => {});
+  }
+
   try {
     await cmd.run(message, args);
   } catch (err) {
@@ -56,4 +62,4 @@ async function handle(message) {
   }
 }
 
-module.exports = { loadCommands, handle };
+module.exports = { loadCommands, handle, commands };

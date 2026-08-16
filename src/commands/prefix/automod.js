@@ -4,7 +4,7 @@ const {
   setRuleEnabled, setRuleAction, setRuleThreshold,
   addWhitelist, removeWhitelist, setLogChannel,
 } = require("../../services/automod");
-const { success, danger, warn, info } = require("../../util/embed");
+const { danger, warn, info } = require("../../util/embed");
 
 const ADMIN = PermissionFlagsBits.ManageGuild;
 const RULES = ["invites", "links", "caps", "mentionSpam", "emojiSpam", "duplicate"];
@@ -53,12 +53,12 @@ module.exports = {
 
     if (sub === "enable" || sub === "on") {
       setEnabled(guildId, true);
-      return message.reply({ embeds: [success("Automod Enabled", "Automod rules are now active.")] });
+      return message.reply("👌");
     }
 
     if (sub === "disable" || sub === "off") {
       setEnabled(guildId, false);
-      return message.reply({ embeds: [success("Automod Disabled", "All automod checks have been turned off.")] });
+      return message.reply("👌");
     }
 
     if (sub === "list") {
@@ -81,7 +81,7 @@ module.exports = {
       if (!word) return message.reply({ embeds: [warn("Missing Word", "**Usage:** `,automod add <word>`")] });
       const added = addWord(guildId, word);
       if (!added) return message.reply({ embeds: [warn("Already Added", `\`${word}\` is already in the blocked words list.`)] });
-      return message.reply({ embeds: [success("Word Added", `\`${word}\` has been added to the blocked words list.`)] });
+      return message.reply("👌");
     }
 
     if (sub === "remove") {
@@ -89,12 +89,12 @@ module.exports = {
       if (!word) return message.reply({ embeds: [warn("Missing Word", "**Usage:** `,automod remove <word>`")] });
       const removed = removeWord(guildId, word);
       if (!removed) return message.reply({ embeds: [danger("Not Found", `\`${word}\` is not in the blocked words list.`)] });
-      return message.reply({ embeds: [success("Word Removed", `\`${word}\` has been removed from the blocked words list.`)] });
+      return message.reply("👌");
     }
 
     if (sub === "clear") {
       clearWords(guildId);
-      return message.reply({ embeds: [success("List Cleared", "All blocked words have been removed.")] });
+      return message.reply("👌");
     }
 
     if (sub === "rule") {
@@ -106,7 +106,7 @@ module.exports = {
 
       if (action === "on" || action === "off") {
         const updated = setRuleEnabled(guildId, ruleName, action === "on");
-        return message.reply({ embeds: [success("Rule Updated", `**${ruleName}** is now ${updated.enabled ? "✅ enabled" : "❌ disabled"}.`)] });
+        return message.reply("👌");
       }
       if (action === "action") {
         const newAction = args[3]?.toLowerCase();
@@ -114,14 +114,14 @@ module.exports = {
           return message.reply({ embeds: [warn("Invalid Action", `Available: ${ACTIONS.join(", ")}`)] });
         }
         const updated = setRuleAction(guildId, ruleName, newAction);
-        return message.reply({ embeds: [success("Rule Updated", `**${ruleName}** now responds with \`${updated.action}\`.`)] });
+        return message.reply("👌");
       }
       if (action === "threshold") {
         const n = parseInt(args[3]);
         if (isNaN(n) || n < 1) return message.reply({ embeds: [warn("Invalid Threshold", "Provide a positive number.")] });
         const updated = setRuleThreshold(guildId, ruleName, n);
         if (!updated) return message.reply({ embeds: [danger("Not Supported", `**${ruleName}** doesn't use a threshold.`)] });
-        return message.reply({ embeds: [success("Rule Updated", `**${ruleName}** threshold set to **${n}**.`)] });
+        return message.reply("👌");
       }
 
       return message.reply({ embeds: [warn("Usage", "`,automod rule <name> <on|off>`\n`,automod rule <name> action <delete|warn|mute>`\n`,automod rule <name> threshold <n>`")] });
@@ -137,14 +137,14 @@ module.exports = {
       if (!target) return message.reply({ embeds: [warn("Missing Target", `Mention a ${type} to ${action} from the whitelist.`)] });
       if (action === "add") addWhitelist(guildId, type, target.id);
       else removeWhitelist(guildId, type, target.id);
-      return message.reply({ embeds: [success("Whitelist Updated", `${target} ${action === "add" ? "added to" : "removed from"} the automod whitelist.`)] });
+      return message.reply("👌");
     }
 
     if (sub === "logchannel") {
       const channel = message.mentions.channels.first();
       if (!channel) return message.reply({ embeds: [warn("Missing Channel", "Mention a channel for automod logs.")] });
       setLogChannel(guildId, channel.id);
-      return message.reply({ embeds: [success("Log Channel Set", `Automod actions will be logged to ${channel}.`)] });
+      return message.reply("👌");
     }
 
     return message.reply({ embeds: [warn("Unknown Subcommand", "**Available:** `enable` · `disable` · `add` · `remove` · `list` · `clear` · `rule` · `whitelist` · `logchannel` · `status`")] });
