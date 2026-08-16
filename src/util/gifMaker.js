@@ -650,6 +650,74 @@ function parseTimeToSeconds(str) {
   return nums[0] * 3600 + nums[1] * 60 + nums[2];
 }
 
+// ── Upload a finished GIF to Cloudinary for a URL that never expires ──
+// Discord attachment links (and most third-party CDN links) carry a signed,
+// time-limited signature once copied out of their original message context —
+// they're fine for the message we just sent, but go dead if reused later.
+// This does a real, permanent upload (not the `fetch`-transform trick used
+// elsewhere in this file), so the returned URL keeps working indefinitely.
+// Requires CLOUDINARY_API_KEY + CLOUDINARY_API_SECRET in .env; if either is
+// missing this just returns null and callers fall back to Discord-only.
+async function uploadPermanentGif(buffer, filenameHint = "gif") {
+  if (!cloudinary?.cloudName || !cloudinary?.apiKey || !cloudinary?.apiSecret) return null;
+
+  try {
+    const crypto = require("crypto");
+    const timestamp = Math.floor(Date.now() / 1000);
+    const signature = crypto
+      .createHash("sha1")
+      .update(`timestamp=${timestamp}${cloudinary.apiSecret}`)
+      .digest("hex");
+
+    const boundary = `----gifUpload${Date.now()}`;
+    const parts = [];
+    const field = (name, value) =>
+      parts.push(`--${boundary}\r\nContent-Disposition: form-data; name="${name}"\r\n\r\n${value}\r\n`);
+    field("api_key", cloudinary.apiKey);
+    field("timestamp", String(timestamp));
+    field("signature", signature);
+    parts.push(
+      `--${boundary}\r\nContent-Disposition: form-data; name="file"; filename="${filenameHint}.gif"\r\nContent-Type: image/gif\r\n\r\n`
+    );
+    const head = Buffer.from(parts.join(""), "utf8");
+    const tail = Buffer.from(`\r\n--${boundary}--\r\n`, "utf8");
+    const body = Buffer.concat([head, buffer, tail]);
+
+    const result = await new Promise((resolve, reject) => {
+      const req = https.request(
+        {
+          method: "POST",
+          hostname: "api.cloudinary.com",
+          path: `/v1_1/${cloudinary.cloudName}/image/upload`,
+          headers: {
+            "Content-Type": `multipart/form-data; boundary=${boundary}`,
+            "Content-Length": body.length,
+          },
+        },
+        (res) => {
+          const chunks = [];
+          res.on("data", (c) => chunks.push(c));
+          res.on("end", () => {
+            try {
+              const parsed = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+              if (res.statusCode >= 200 && res.statusCode < 300 && parsed.secure_url) resolve(parsed);
+              else reject(new Error(parsed.error?.message || `Cloudinary upload HTTP ${res.statusCode}`));
+            } catch (e) { reject(e); }
+          });
+        }
+      );
+      req.on("error", reject);
+      req.write(body);
+      req.end();
+    });
+
+    return result.secure_url;
+  } catch (err) {
+    console.warn("[gifMaker] permanent upload failed, keeping Discord-only copy:", err.message);
+    return null;
+  }
+}
+
 module.exports = {
   makeStaticGif,
   makeCaptionedAnimatedGif,
@@ -658,4 +726,5 @@ module.exports = {
   isVideoBuffer,
   fetchBuffer,
   parseTimeToSeconds,
+  uploadPermanentGif,
 };

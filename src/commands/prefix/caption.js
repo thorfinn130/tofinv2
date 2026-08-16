@@ -1,5 +1,5 @@
 const { AttachmentBuilder } = require("discord.js");
-const { makeStaticGif, makeCaptionedAnimatedGif, isGifBuffer, fetchBuffer } = require("../../util/gifMaker");
+const { makeStaticGif, makeCaptionedAnimatedGif, isGifBuffer, fetchBuffer, uploadPermanentGif } = require("../../util/gifMaker");
 const { warn, danger } = require("../../util/embed");
 
 module.exports = {
@@ -28,7 +28,11 @@ module.exports = {
         : await makeStaticGif(url, caption); // gracefully handles a non-animated link too
 
       const file = new AttachmentBuilder(outBuf, { name: "captioned.gif" });
-      return message.reply({ files: [file] });
+      const permanentUrl = await uploadPermanentGif(outBuf, "captioned").catch(() => null);
+      return message.reply({
+        content: permanentUrl ? `-# 🔗 permanent link (won't expire): ${permanentUrl}` : undefined,
+        files: [file],
+      });
     } catch (err) {
       console.error("[,caption gif]", err);
       return message.reply({ embeds: [danger("Failed", "Couldn't process that URL. Make sure it's a direct link to an image or GIF.")] });

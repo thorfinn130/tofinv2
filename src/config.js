@@ -6,6 +6,8 @@ module.exports = {
   prefix: process.env.PREFIX || ",",
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME || null,
+    apiKey: process.env.CLOUDINARY_API_KEY || null,
+    apiSecret: process.env.CLOUDINARY_API_SECRET || null,
   },
   colors: {
     primary: 0x5865f2,

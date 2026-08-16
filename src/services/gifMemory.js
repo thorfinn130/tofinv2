@@ -49,9 +49,33 @@ function extractGifUrl(message) {
   return null;
 }
 
+// Domains known to issue long-lived, stable URLs — safe to store and reuse
+// indefinitely (Tenor/Giphy/Imgur don't sign or expire their links, and our
+// own Cloudinary uploads are permanent by design).
+const STABLE_DOMAINS = [
+  "tenor.com", "media.tenor.com", "media1.tenor.com",
+  "giphy.com", "media.giphy.com",
+  "imgur.com", "i.imgur.com",
+  "res.cloudinary.com",
+];
+
+function isStableUrl(url) {
+  try {
+    const host = new URL(url).hostname.toLowerCase();
+    return STABLE_DOMAINS.some((d) => host === d || host.endsWith(`.${d}`));
+  } catch {
+    return false;
+  }
+}
+
 // ── Save a GIF URL for a guild ────────────────────────────────────────────────
+// Only genuinely permanent links get kept — Discord attachment URLs and most
+// third-party CDN links (TikTok, Twitter, Pinterest) carry a signed signature
+// that expires within hours once the link is copied out of its original
+// message, so saving those for later reuse just produces dead links down the
+// line. Skip them here rather than storing something that will go stale.
 function saveGif(guildId, url) {
-  if (!url) return;
+  if (!url || !isStableUrl(url)) return;
   const d = load();
   if (!d[guildId]) d[guildId] = [];
   if (d[guildId].some(g => g.url === url)) return; // no dupes

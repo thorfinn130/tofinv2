@@ -1,7 +1,7 @@
 const { AttachmentBuilder } = require("discord.js");
 const {
   makeStaticGif, makeCaptionedAnimatedGif, makeGifFromVideo,
-  isGifBuffer, isVideoBuffer, fetchBuffer, parseTimeToSeconds,
+  isGifBuffer, isVideoBuffer, fetchBuffer, parseTimeToSeconds, uploadPermanentGif,
 } = require("../../util/gifMaker");
 
 module.exports = {
@@ -79,8 +79,11 @@ module.exports = {
       }
 
       const file = new AttachmentBuilder(outBuf, { name: "result.gif" });
-      // Per the request: respond with nothing but the gif, no extra message text
-      return message.reply({ files: [file] });
+      const permanentUrl = await uploadPermanentGif(outBuf, "gif").catch(() => null);
+      return message.reply({
+        content: permanentUrl ? `-# 🔗 permanent link (won't expire): ${permanentUrl}` : undefined,
+        files: [file],
+      });
     } catch (err) {
       console.error("[,gif]", err);
       return message.reply({ content: `❌ ${err.message || "Couldn't process that. Make sure it's a valid image, GIF, or video."}` });
