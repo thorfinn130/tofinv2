@@ -8,7 +8,7 @@ module.exports = {
     emoji: "🔨",
     commands: [
       "kick", "mute", "ban", "warn", "unwarn", "unmute", "unban", "warnings",
-      "lock", "slowmode", "purge", "nickname", "setup", "jail", "unjail",
+      "lock", "slowmode", "purge", "nickname", "fn", "setup", "jail", "unjail",
       "automod", "logs", "antinuke", "disable", "enable",
     ],
   },
@@ -16,11 +16,6 @@ module.exports = {
     label: "Roles & Info",
     emoji: "👥",
     commands: ["role", "brole", "mrole", "r", "rc", "rf", "userinfo", "serverinfo", "roleinfo", "status"],
-  },
-  leveling: {
-    label: "Leveling",
-    emoji: "⭐",
-    commands: ["profile", "leaderboard", "levelrole", "leveltoggle"],
   },
   fun: {
     label: "Fun & Events",
@@ -50,6 +45,6 @@ module.exports = {
   owner: {
     label: "Owner Tools",
     emoji: "🔐",
-    commands: ["admin", "sl", "ssl", "eval", "grant", "grantowner", "restart", "giveownership", "execute"],
+    commands: ["ssl", "eval", "grant", "grantowner", "restart", "giveownership", "execute"],
   },
 };

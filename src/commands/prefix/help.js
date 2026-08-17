@@ -9,7 +9,7 @@ const CATEGORIES = {
       { name: "Kick / Mute / Ban", value: "`,kick @user [reason]` — kick a member\n`,mute @user <duration> [reason]` — temp mute\n`,ban @user [duration] [reason]` — ban (permanent if no duration)", inline: false },
       { name: "Warn / Manage", value: "`,warn @user <reason>` — warn & DM the user\n`,warnings @user` — view all warnings\n`,unwarn @user <id>` — remove a warning\n`,unmute @user` — lift a mute\n`,unban <userId>` — unban a user", inline: false },
       { name: "Channels", value: "`,lock` / `,unlock` — lock or unlock the channel\n`,slowmode <secs>` — set slowmode (0 = off)\n`,purge <amount>` — delete up to 100 messages", inline: false },
-      { name: "Other", value: "`,nickname @user [name]` (`,nick`) — change/reset nickname\n`,announce #channel <msg>` — send an announcement", inline: false },
+      { name: "Other", value: "`,nickname @user [name]` (`,nick`) — change/reset nickname\n`,fn add @user <nickname>` — force a nickname; reverts automatically if they change it *(higher role than target)*\n`,fn remove @user` — release a forced nickname\n`,fn list` — active forced nicknames\n`,announce #channel <msg>` — send an announcement", inline: false },
       { name: "Jail System", value: "`,setup` — one-time setup: mute role, jail role/channel, mod category *(Admin)*\n`,jail @user [duration] [reason]` — jail a member *(Admin)*\n`,unjail @user` — release & restore roles *(Admin)*\n`,jail channel #channel` / `,jail role @role` — reconfigure\n`,jail config` — view current setup", inline: false },
       { name: "Automod", value: "`,automod enable` / `,automod disable` — toggle automod *(Admin)*\n`,automod add/remove <word>` — manage blocked words\n`,automod rule <name> <on|off>` — toggle a rule\n`,automod rule <name> action <delete|warn|mute>` — set the response\n`,automod whitelist channel/role add/remove` — exempt a channel/role\n`,automod status` — current config", inline: false },
       { name: "Logging", value: "`,logs add #channel <events>` — send events to a channel *(Admin)*\n`,logs remove #channel <events>` — stop sending those\n`,logs list` — configured log channels\n`,logs events` — list all loggable event types", inline: false },
@@ -25,16 +25,6 @@ const CATEGORIES = {
       { name: "Roles", value: "`,role @role <preset>` — assign a permission preset *(owner)*\nPresets: `trialmod_perm` · `mod_perm` · `admin_perm` · `coowner_perm`\n`,brole @role` — give to all bots\n`,mrole @role` — give to all members\n`,r @role @user` — give a role to one user *(Manage Roles)*\n`,rc <name> [color]` — create a role *(Manage Roles)*\n`,rf @role` — delete a role *(Manage Roles)*", inline: false },
       { name: "Info", value: "`,userinfo [@user]` (`,ui`) — user details, roles & warnings\n`,serverinfo` (`,si`) — server stats\n`,roleinfo @role` (`,ri`) — role details", inline: true },
       { name: "Status Roles", value: "`,status @role <text>` — auto-give a role when someone's status contains that text *(Manage Roles)*\n`,status list` — active rules\n`,status remove @role` — stop tracking", inline: true },
-    ],
-  },
-  leveling: {
-    label: "Leveling",
-    emoji: "⭐",
-    color: 0x9B59B6,
-    fields: [
-      { name: "Profile & Leaderboard", value: "`,profile [@user]` (`,prof`, `,rank`) — level card with XP bar & rank\n`,leaderboard` (`,lb`, `,top`) — top 10 by level", inline: false },
-      { name: "Level Roles", value: "`,levelrole` — view configured rewards\n`,levelrole add <level> @role` — auto-give a role *(Manage Roles)*\n`,levelrole remove <level>` — remove a reward", inline: false },
-      { name: "Admin Tuning", value: "`,leveltoggle` (`,levelon`/`,leveloff`) — enable/disable XP gain *(Admin)*\n`,admin xprate <amount>` / `,admin xpcooldown <secs>` *(Owner)*\n`,admin level/addxp/resetlevel @user` *(Owner)*", inline: false },
     ],
   },
   fun: {
@@ -95,7 +85,7 @@ const CATEGORIES = {
     color: 0x992D22,
     fields: [
       { name: "⚠️ Dangerous", value: "`,restart` — wipe all channels, roles & kick bots *(server owner)*\n`,giveownership` — give the bot full Administrator + highest role *(server owner)*\n`,execute @role` — kick everyone with that role *(server owner)*", inline: false },
-      { name: "Bot Owner", value: "`,admin` — economy/leveling admin console *(Bot Owner)*\n`,grantowner @user` — grant bot owner permission *(Bot Owner)*\n`,sl` — server list with invite links *(Bot Owner)*\n`/ttthelp` — full owner reference, shown only to you", inline: false },
+      { name: "Bot Owner", value: "`,grantowner @user` — grant bot owner permission *(Bot Owner)*", inline: false },
     ],
   },
 };
@@ -109,7 +99,6 @@ function overviewEmbed({ username, avatarURL }) {
       "> Pick a category from the **menu below** to browse its commands.\n\n" +
       "🔨 **Moderation** — kick, mute, ban, warn, purge, anti-nuke, automod\n" +
       "👥 **Roles & Info** — role management, userinfo, status roles\n" +
-      "⭐ **Leveling** — profile, leaderboard, level roles\n" +
       "🎉 **Fun & Events** — polls, giveaways, games, emojis\n" +
       "💾 **Server Tools** — backups, templates, invites\n" +
       "👋 **Welcomer** — custom welcome & goodbye messages\n" +

@@ -1,7 +1,8 @@
 const { PermissionFlagsBits } = require("discord.js");
 const { parseDuration, formatDuration } = require("../../util/time");
 const { tempBan } = require("../../services/moderation");
-const { success, danger, warn } = require("../../util/embed");
+const { danger, warn } = require("../../util/embed");
+const { resolveMember, formatAmbiguous } = require("../../util/resolve");
 
 module.exports = {
   name: "ban",
@@ -37,8 +38,21 @@ module.exports = {
       break;
     }
 
+    // No mention/ID found — fall back to fuzzy name matching on the first
+    // token (covers the common single-target case: ,ban syth spamming).
     if (!userIds.length) {
-      return message.reply({ embeds: [warn("Invalid User", "Provide at least one valid user mention or ID.")] });
+      const nameResult = resolveMember(message.guild, args[0]);
+      if (nameResult.status === "ambiguous") {
+        return message.reply({ content: formatAmbiguous(nameResult, "member"), allowedMentions: { users: [], repliedUser: false } });
+      }
+      if (nameResult.status === "found") {
+        userIds.push(nameResult.match.id);
+        i = 1;
+      }
+    }
+
+    if (!userIds.length) {
+      return message.reply({ embeds: [warn("Invalid User", "Couldn't find that user by mention, ID, username, or nickname.")] });
     }
 
     // ── Parse duration and reason from remaining args ──

@@ -43,7 +43,7 @@ module.exports = {
     return message.reply({
       embeds: [success(
         "Owner Granted",
-        `**${user.tag}** now has bot owner permission.\nThis gives access to **,admin**, **/ttthelp**, and other bot-wide admin tools — **not** \`,restart\`, \`,giveownership\`, or \`,execute\`, which remain Discord-server-owner-only.`
+        `**${user.tag}** now has bot owner permission.\nThis gives access to **,admin** and other bot-wide admin tools — **not** \`,restart\`, \`,giveownership\`, or \`,execute\`, which remain Discord-server-owner-only.`
       )],
     });
   },

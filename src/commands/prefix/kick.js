@@ -1,5 +1,6 @@
 const { PermissionFlagsBits } = require("discord.js");
 const { danger, warn } = require("../../util/embed");
+const { resolveMember, formatAmbiguous } = require("../../util/resolve");
 
 module.exports = {
   name: "kick",
@@ -11,13 +12,27 @@ module.exports = {
       return message.reply({ embeds: [danger("Missing Permission", "I need the **Kick Members** permission to do that.")] });
     }
 
-    const targets = [...message.mentions.members.values()];
+    let targets = [...message.mentions.members.values()];
+    let reasonArgs = args;
+
+    // No mentions — fall back to fuzzy name matching on the first token.
+    if (!targets.length && args.length) {
+      const nameResult = resolveMember(message.guild, args[0]);
+      if (nameResult.status === "ambiguous") {
+        return message.reply({ content: formatAmbiguous(nameResult, "member"), allowedMentions: { users: [], repliedUser: false } });
+      }
+      if (nameResult.status === "found") {
+        targets = [nameResult.match];
+        reasonArgs = args.slice(1);
+      }
+    }
+
     if (!targets.length) {
-      return message.reply({ embeds: [warn("Missing User", "**Usage:** `,kick @user [reason]`\n**Example:** `,kick @John breaking the rules`\nYou can mention multiple users to kick them all at once.")] });
+      return message.reply({ embeds: [warn("Missing User", "**Usage:** `,kick <user> [reason]`\n**Example:** `,kick @John breaking the rules`\nWorks with a mention, username, nickname, or a close typo of either. Mention multiple users to kick them all at once.")] });
     }
 
     // Strip mentions from args to build the reason text
-    const reasonParts = args.filter((a) => !/^<@!?\d+>$/.test(a));
+    const reasonParts = reasonArgs.filter((a) => !/^<@!?\d+>$/.test(a));
     const reason = reasonParts.join(" ") || "No reason";
 
     const results = [];

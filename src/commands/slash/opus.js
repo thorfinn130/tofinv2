@@ -35,7 +35,7 @@ module.exports = {
 
     try {
       const inputBuf = await fetchBuffer(sourceUrl);
-      const opusBuf = await extractAudio(inputBuf, "opus");
+      const opusBuf = await extractAudio(inputBuf, "opus", sourceUrl);
 
       if (opusBuf.length > DISCORD_UPLOAD_LIMIT) {
         return interaction.editReply({ content: `❌ The extracted Opus file is **${(opusBuf.length / 1024 / 1024).toFixed(1)}MB**, over Discord's 8MB upload limit. Try a shorter clip.` });

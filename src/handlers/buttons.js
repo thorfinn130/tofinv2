@@ -505,14 +505,6 @@ async function handleGiveawayButton(interaction) {
       return interaction.reply({ content: `❌ You need the <@&${gw.requiredRoleId}> role to join this giveaway.`, ephemeral: true });
     }
 
-    if (gw.requiredLevel) {
-      const { getUser } = require("../services/leveling");
-      const lvl = getUser(interaction.guild.id, interaction.user.id);
-      if ((lvl?.level ?? 1) < gw.requiredLevel) {
-        return interaction.reply({ content: `❌ You need to be **Level ${gw.requiredLevel}** or higher to join this giveaway. You're currently Level ${lvl?.level ?? 1}.`, ephemeral: true });
-      }
-    }
-
     gw.entries = gw.entries ?? [];
 
     if (gw.entries.includes(interaction.user.id)) {

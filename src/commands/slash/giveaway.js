@@ -57,12 +57,6 @@ module.exports = {
             .setDescription("Role required to enter")
             .setRequired(false)
         )
-        .addIntegerOption((o) =>
-          o.setName("required-level")
-            .setDescription("Minimum level required to enter")
-            .setMinValue(1)
-            .setRequired(false)
-        )
         .addRoleOption((o) =>
           o.setName("winners-role")
             .setDescription("Role automatically given to the winner(s)")
@@ -175,12 +169,6 @@ module.exports = {
             .setDescription("New required role (set to @everyone to remove)")
             .setRequired(false)
         )
-        .addIntegerOption((o) =>
-          o.setName("required-level")
-            .setDescription("New required level (set to 0 to remove)")
-            .setMinValue(0)
-            .setRequired(false)
-        )
         .addStringOption((o) =>
           o.setName("color")
             .setDescription("New embed color — hex code e.g. #5865F2")
@@ -234,7 +222,6 @@ module.exports = {
       const winnerCount  = interaction.options.getInteger("winners")      ?? 1;
       const channel      = interaction.options.getChannel("channel")      ?? interaction.channel;
       const reqRole      = interaction.options.getRole("required-role");
-      const reqLevel     = interaction.options.getInteger("required-level");
       const winnersRole  = interaction.options.getRole("winners-role");
       const host         = interaction.options.getUser("host")            ?? interaction.user;
       const colorHex     = interaction.options.getString("color");
@@ -262,7 +249,6 @@ module.exports = {
         endsAt:         Date.now() + ms,
         hostId:         host.id,
         requiredRoleId: reqRole?.id         ?? null,
-        requiredLevel:  reqLevel || null,
         winnersRoleId:  winnersRole?.id     ?? null,
         color:          parseColor(colorHex),
         endColor:       parseColor(endColorHex),
@@ -299,7 +285,6 @@ module.exports = {
         );
 
       if (reqRole)     summary.addFields({ name: "Required Role",  value: `${reqRole}`,    inline: true });
-      if (reqLevel)    summary.addFields({ name: "Required Level", value: `${reqLevel}`,   inline: true });
       if (winnersRole) summary.addFields({ name: "Winners Role",   value: `${winnersRole}`, inline: true });
 
       summary.addFields({ name: "Message ID", value: `\`${gwMsg.id}\``, inline: false });
@@ -389,7 +374,6 @@ module.exports = {
       const newPrize    = interaction.options.getString("prize");
       const newWinners  = interaction.options.getInteger("winners");
       const newReqRole  = interaction.options.getRole("required-role");
-      const newReqLevel = interaction.options.getInteger("required-level");
       const newColor    = interaction.options.getString("color");
 
       let changed = false;
@@ -397,7 +381,6 @@ module.exports = {
       if (newPrize)    { gw.prize = newPrize; changed = true; }
       if (newWinners)  { gw.winnerCount = newWinners; changed = true; }
       if (newReqRole)  { gw.requiredRoleId = newReqRole.id === interaction.guild.id ? null : newReqRole.id; changed = true; }
-      if (newReqLevel !== null && newReqLevel !== undefined) { gw.requiredLevel = newReqLevel === 0 ? null : newReqLevel; changed = true; }
       if (newColor)    { gw.color = parseColor(newColor); changed = true; }
 
       if (!changed) {

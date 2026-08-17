@@ -64,7 +64,6 @@ function buildEmbed(gw, ended = false) {
 
   const requirements = [];
   if (gw.requiredRoleId) requirements.push(`**Required Role:** <@&${gw.requiredRoleId}>`);
-  if (gw.requiredLevel)  requirements.push(`**Required Level:** ${gw.requiredLevel}`);
   const reqLine = requirements.length ? `\n${requirements.join("\n")}` : "";
 
   const lines = ended
@@ -135,12 +134,6 @@ async function pickWinners(gw, guild, excludeIds = []) {
       if (!member) continue;
 
       if (gw.requiredRoleId && !member.roles.cache.has(gw.requiredRoleId)) continue;
-
-      if (gw.requiredLevel) {
-        const { getUser } = require("./leveling");
-        const lvl = getUser(guild.id, userId);
-        if ((lvl?.level ?? 1) < gw.requiredLevel) continue;
-      }
 
       eligible.push(userId);
     } catch {

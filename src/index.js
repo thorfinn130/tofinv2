@@ -8,7 +8,6 @@ const logging  = require("./services/logging");
 const giveaway = require("./services/giveaway");
 const { track: trackMessage } = require("./services/messageTracker");
 const inviteTracker = require("./services/inviteTracker");
-const { addXP, rolesEarnedAt } = require("./services/leveling");
 const aiChat = require("./services/aiChat");
 const { extractGifUrl, saveGif } = require("./services/gifMemory");
 const { storeDelete } = require("./commands/prefix/snipe");
@@ -45,6 +44,9 @@ const client = new Client({
   ],
   partials: [Partials.GuildMember, Partials.User, Partials.Channel, Partials.Message],
   presence: { status: "online" },
+  // Bot-wide default: replies no longer ping the person being replied to.
+  // Still shows the little "replying to X" reference line, just silent.
+  allowedMentions: { repliedUser: false },
 });
 
 prefix.loadCommands();
@@ -231,30 +233,6 @@ client.on("messageCreate", async (m) => {
   if (gifUrl) saveGif(m.guild.id, gifUrl);
 
   trackMessage(m.guild.id, m.author.id);
-
-  const { isLevelingEnabled } = require("./commands/prefix/leveltoggle");
-  if (isLevelingEnabled(m.guild.id)) {
-    const result = addXP(m.guild.id, m.author.id);
-    if (result?.leveled) {
-      m.channel.send({
-        content: `🎉 ${m.author} leveled up to **Level ${result.level}**!`,
-      }).catch(() => {});
-
-      // Apply any level-role rewards the member has newly earned
-      try {
-        const roleIds = rolesEarnedAt(m.guild.id, result.level);
-        if (roleIds.length) {
-          const member = m.member ?? await m.guild.members.fetch(m.author.id).catch(() => null);
-          if (member) {
-            const toAdd = roleIds.filter((id) => !member.roles.cache.has(id) && m.guild.roles.cache.has(id));
-            if (toAdd.length) await member.roles.add(toAdd, "Level role reward").catch(() => {});
-          }
-        }
-      } catch (e) {
-        console.error("[levelRoles]", e);
-      }
-    }
-  }
 
   // ── Alias resolution ──
   const PREFIX = ",";

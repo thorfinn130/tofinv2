@@ -2,6 +2,7 @@ const { PermissionFlagsBits } = require("discord.js");
 const { parseDuration, formatDuration } = require("../../util/time");
 const { tempMute } = require("../../services/moderation");
 const { danger, warn } = require("../../util/embed");
+const { resolveMember, formatAmbiguous } = require("../../util/resolve");
 
 module.exports = {
   name: "mute",
@@ -10,9 +11,16 @@ module.exports = {
     if (!message.member.permissions.has(PermissionFlagsBits.ModerateMembers)) {
       return message.reply({ embeds: [danger("Missing Permission", "Permission: (Timeout Members)")] });
     }
-    const member = message.mentions.members.first();
+    let member = message.mentions.members.first();
+    if (!member && args[0]) {
+      const nameResult = resolveMember(message.guild, args[0]);
+      if (nameResult.status === "ambiguous") {
+        return message.reply({ content: formatAmbiguous(nameResult, "member"), allowedMentions: { users: [], repliedUser: false } });
+      }
+      if (nameResult.status === "found") member = nameResult.match;
+    }
     if (!member) {
-      return message.reply({ embeds: [warn("Missing User", "You need to mention a user.\n**Usage:** `,mute @user <duration> [reason]`\n**Example:** `,mute @John 10m spamming`")] });
+      return message.reply({ embeds: [warn("Missing User", "**Usage:** `,mute <user> <duration> [reason]`\n**Example:** `,mute @John 10m spamming`\nWorks with a mention, username, nickname, or a close typo of either.")] });
     }
     const ms = parseDuration(args[1]);
     if (!ms) {

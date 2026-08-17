@@ -36,7 +36,7 @@ module.exports = {
 
     try {
       const inputBuf = await fetchBuffer(sourceUrl);
-      const mp3Buf = await extractAudio(inputBuf);
+      const mp3Buf = await extractAudio(inputBuf, "mp3", sourceUrl);
 
       if (mp3Buf.length > DISCORD_UPLOAD_LIMIT) {
         return interaction.editReply({ content: `❌ The extracted MP3 is **${(mp3Buf.length / 1024 / 1024).toFixed(1)}MB**, over Discord's 8MB upload limit. Try a shorter clip.` });

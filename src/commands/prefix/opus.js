@@ -34,7 +34,7 @@ module.exports = {
 
     try {
       const inputBuf = await fetchBuffer(sourceUrl);
-      const opusBuf = await extractAudio(inputBuf, "opus");
+      const opusBuf = await extractAudio(inputBuf, "opus", sourceUrl);
 
       if (opusBuf.length > DISCORD_UPLOAD_LIMIT) {
         return message.reply({
