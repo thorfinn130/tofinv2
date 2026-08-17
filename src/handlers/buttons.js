@@ -454,12 +454,17 @@ async function handle(interaction) {
       if (action.startsWith("gw_")) return handleGiveawayButton(interaction);
       if (action.startsWith("cp_"))  return handleColorPicker(interaction);
       if (action === "dis_back") return handleDisableBack(interaction);
+      if (action.startsWith("an_")) return handleAntiNukeButton(interaction);
     }
     if (interaction.isStringSelectMenu()) {
       const action = interaction.customId.split(":")[0];
       if (action === "help_cat") return handleHelpCat(interaction);
       if (action === "dis_cat") return handleDisableCategory(interaction);
       if (action === "dis_toggle") return handleDisableToggle(interaction);
+    }
+    if (interaction.isChannelSelectMenu() || interaction.isRoleSelectMenu()) {
+      const action = interaction.customId.split(":")[0];
+      if (action.startsWith("an_")) return handleAntiNukeButton(interaction);
     }
   } catch (err) {
     console.error("[interaction handler]", err);
@@ -483,6 +488,94 @@ async function handleModal(interaction) {
       if (interaction.replied || interaction.deferred) await interaction.followUp(reply);
       else await interaction.reply(reply);
     } catch {}
+  }
+}
+
+// ── Anti-nuke: setup wizard, config toggle, health check, lockdown ──────────────────
+async function handleAntiNukeButton(interaction) {
+  if (!interaction.member.permissions.has(PermissionFlagsBits.Administrator)) {
+    return interaction.reply({ content: '❌ You need **Administrator** to manage anti-nuke.', ephemeral: true });
+  }
+
+  const antinuke = require('../commands/prefix/antinuke');
+  const antiNukeService = require('../services/antiNuke');
+  const action = interaction.customId.split(':')[0];
+  const guild = interaction.guild;
+
+  if (action === 'an_toggle') {
+    const cfg = antiNukeService.getConfig(guild.id);
+    antiNukeService.toggleAllModules(guild.id, !cfg.enabled);
+    const updated = antiNukeService.getConfig(guild.id);
+    return interaction.update({ embeds: [antinuke.buildConfigEmbed(guild, updated)], components: antinuke.buildConfigButtons(updated.enabled) });
+  }
+
+  if (action === 'an_check') {
+    const report = antiNukeService.diagnose(guild);
+    const { EmbedBuilder } = require('discord.js');
+    const { colors } = require('../config');
+    const embed = new EmbedBuilder()
+      .setTitle(report.healthy ? '✅ Anti-Nuke Health Check: All Good' : '⚠️ Anti-Nuke Health Check: Issues Found')
+      .setColor(report.healthy ? colors.success : colors.warn)
+      .addFields(
+        { name: 'Permissions', value: report.permChecks.map((p) => `${p.ok ? '✅' : '❌'} ${p.label}`).join('\n') },
+        { name: 'Role Position', value: report.rolePositionOk ? `✅ **${report.myTopRoleName}** outranks every other assignable role.` : `❌ **${report.myTopRoleName}** is below **${report.highestAssignableRoleName}**.` },
+      );
+    if (report.issues.length) embed.addFields({ name: 'Fix these', value: report.issues.map((i) => `• ${i}`).join('\n') });
+    return interaction.reply({ embeds: [embed], ephemeral: true });
+  }
+
+  if (action === 'an_setup_open') {
+    return interaction.update({ embeds: [antinuke.buildSetupIntroEmbed(guild)], components: antinuke.buildSetupIntroComponents() });
+  }
+
+  if (action === 'an_setup_start') {
+    antiNukeService.toggleAllModules(guild.id, true);
+    return interaction.update({ embeds: [antinuke.buildSetupChannelStepEmbed()], components: antinuke.buildSetupChannelStepComponents() });
+  }
+
+  if (action === 'an_setup_info') {
+    return interaction.update({ embeds: [antinuke.buildProtectionsInfoEmbed()], components: antinuke.buildBackButton() });
+  }
+
+  if (action === 'an_setup_back') {
+    return interaction.update({ embeds: [antinuke.buildSetupIntroEmbed(guild)], components: antinuke.buildSetupIntroComponents() });
+  }
+
+  if (action === 'an_setup_channel_select') {
+    const cfg = antiNukeService.getConfig(guild.id);
+    cfg.staffChannelId = interaction.values[0];
+    antiNukeService.setConfig(guild.id, cfg);
+    return interaction.update({ embeds: [antinuke.buildSetupRoleStepEmbed()], components: antinuke.buildSetupRoleStepComponents() });
+  }
+
+  if (action === 'an_setup_skip_channel') {
+    return interaction.update({ embeds: [antinuke.buildSetupRoleStepEmbed()], components: antinuke.buildSetupRoleStepComponents() });
+  }
+
+  if (action === 'an_setup_role_select') {
+    for (const roleId of interaction.values) {
+      antiNukeService.addWhitelist(guild.id, 'role', roleId);
+    }
+    const cfg = antiNukeService.getConfig(guild.id);
+    return interaction.update({ embeds: [antinuke.buildSetupSummaryEmbed(guild, cfg)], components: [] });
+  }
+
+  if (action === 'an_setup_finish') {
+    const cfg = antiNukeService.getConfig(guild.id);
+    return interaction.update({ embeds: [antinuke.buildSetupSummaryEmbed(guild, cfg)], components: [] });
+  }
+
+  if (action === 'an_lockdown_confirm') {
+    await interaction.deferUpdate();
+    const result = await antiNukeService.lockdownGuild(guild);
+    return interaction.editReply({
+      embeds: [successEmbed('🔒 Lockdown Active', `Locked ${result.locked} channel${result.locked === 1 ? '' : 's'}.${result.failed ? ` (${result.failed} skipped — I don't have Manage Roles there.)` : ''}\n\nRun \`,antinuke unlock\` when it's safe to restore normal access.`)],
+      components: [],
+    });
+  }
+
+  if (action === 'an_lockdown_cancel') {
+    return interaction.update({ embeds: [warnEmbed('Cancelled', 'Lockdown was not applied.')], components: [] });
   }
 }
 
