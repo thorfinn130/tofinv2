@@ -1,5 +1,6 @@
 const { PermissionFlagsBits } = require("discord.js");
 const { saveTemplate, loadTemplate, addToServer, listTemplates, deleteTemplate, parseModeAndName, MODES } = require("../../services/template");
+const { hasAccess, grant, revoke, getGranted } = require("../../services/templateAccess");
 const { success, info, danger, warn } = require("../../util/embed");
 
 // ─── Custom emojis (replace with your actual IDs) ───
@@ -13,6 +14,8 @@ const EMOJIS = {
 
 const isOwner = (message) => message.author.id === message.guild.ownerId;
 const isAdmin = (message) => message.member.permissions.has(PermissionFlagsBits.Administrator);
+// Server owner, or anyone the owner has specifically granted template access to.
+const canUseTemplates = (message) => hasAccess(message.guild, message.author.id);
 
 const LABELS = { roles: "roles", channels: "channels", bots: "bot roles", emojis: "emojis", stickers: "stickers" };
 
@@ -34,10 +37,43 @@ module.exports = {
   async run(message, args) {
     const sub = args[0]?.toLowerCase();
 
-    // save & list — open to anyone with Administrator (includes owner, co-owner, admins)
+    // grant/revoke/access — only the real owner can manage who else gets template access
+    if (sub === "grant" || sub === "revoke") {
+      if (!isOwner(message)) {
+        return message.reply({ embeds: [danger(`${EMOJIS.problem} Owner Only`, "Only the server owner can grant or revoke template access.")] });
+      }
+      const { resolveMember, formatAmbiguous } = require("../../util/resolve");
+      const query = args.slice(1).join(" ");
+      if (!query) {
+        return message.reply({ embeds: [warn(`${EMOJIS.problem} Missing User`, `**Usage:** \`,template ${sub} <user>\``)] });
+      }
+      const result = resolveMember(message.guild, query);
+      if (result.status === "not_found") {
+        return message.reply({ embeds: [warn(`${EMOJIS.problem} Not Found`, `Couldn't find anyone matching \`${query}\`.`)] });
+      }
+      if (result.status === "ambiguous") {
+        return message.reply({ content: formatAmbiguous(result, "member"), allowedMentions: { users: [], repliedUser: false } });
+      }
+      const target = result.match;
+      if (sub === "grant") {
+        grant(message.guild.id, target.id);
+        return message.reply({ content: `✓ Granted template access to <@${target.id}>`, allowedMentions: { users: [], repliedUser: false } });
+      } else {
+        revoke(message.guild.id, target.id);
+        return message.reply({ content: `✓ Revoked template access from <@${target.id}>`, allowedMentions: { users: [], repliedUser: false } });
+      }
+    }
+
+    if (sub === "access") {
+      const ids = getGranted(message.guild.id);
+      const desc = ids.length ? ids.map((id) => `<@${id}>`).join("\n") : "_No one has been granted template access yet._";
+      return message.reply({ embeds: [info(`${EMOJIS.templates} Granted Template Access`, `${desc}\n\n*(The server owner always has access.)*`)] });
+    }
+
+    // save & list — Administrator, or anyone granted template access
     if (sub === "save") {
-      if (!isAdmin(message)) {
-        return message.reply({ embeds: [danger(`${EMOJIS.problem} Missing Permission`, "Permission: (Administrator)")] });
+      if (!isAdmin(message) && !canUseTemplates(message)) {
+        return message.reply({ embeds: [danger(`${EMOJIS.problem} Missing Permission`, "Permission: (Administrator), or ask the server owner to run `,template grant`")] });
       }
       const name = args.slice(1).join(" ");
       if (!name) return message.reply({ embeds: [warn(`${EMOJIS.problem} Missing Name`, "Provide a name.\n**Usage:** `,template save <name>`")] });
@@ -47,8 +83,8 @@ module.exports = {
     }
 
     if (sub === "list") {
-      if (!isAdmin(message)) {
-        return message.reply({ embeds: [danger(`${EMOJIS.problem} Missing Permission`, "Permission: (Administrator)")] });
+      if (!isAdmin(message) && !canUseTemplates(message)) {
+        return message.reply({ embeds: [danger(`${EMOJIS.problem} Missing Permission`, "Permission: (Administrator), or ask the server owner to run `,template grant`")] });
       }
       const list = listTemplates(message.author.id);
       const desc = list.length
@@ -58,8 +94,8 @@ module.exports = {
     }
 
     if (sub === "delete") {
-      if (!isAdmin(message)) {
-        return message.reply({ embeds: [danger(`${EMOJIS.problem} Missing Permission`, "Permission: (Administrator)")] });
+      if (!isAdmin(message) && !canUseTemplates(message)) {
+        return message.reply({ embeds: [danger(`${EMOJIS.problem} Missing Permission`, "Permission: (Administrator), or ask the server owner to run `,template grant`")] });
       }
       const name = args.slice(1).join(" ");
       if (!name) return message.reply({ embeds: [warn(`${EMOJIS.problem} Missing Name`, "Provide a template name.\n**Usage:** `,template delete <name>`")] });
@@ -68,10 +104,10 @@ module.exports = {
       return message.reply({ embeds: [success(`${EMOJIS.deleted} Deleted!`, `Template **${name}** has been permanently deleted.`)] });
     }
 
-    // load — owner only (destructive: wipes and replaces the chosen categories)
+    // load — owner, or anyone the owner has granted template access to (destructive: wipes and replaces the chosen categories)
     if (sub === "load") {
-      if (!isOwner(message)) {
-        return message.reply({ embeds: [danger(`${EMOJIS.problem} Owner Only`, "Only the server owner can load templates.")] });
+      if (!canUseTemplates(message)) {
+        return message.reply({ embeds: [danger(`${EMOJIS.problem} Owner Only`, "Only the server owner (or someone they've granted access via `,template grant`) can load templates.")] });
       }
       const rest = args.slice(1);
       if (!rest.length) {
@@ -136,22 +172,21 @@ module.exports = {
     }
 
     // ── Default help ──
-    if (!isAdmin(message)) {
+    if (!isAdmin(message) && !canUseTemplates(message)) {
       return message.reply({ embeds: [danger(`${EMOJIS.problem} Missing Permission`, "Permission: (Administrator)")] });
     }
 
     return message.reply({
       embeds: [info(
         `${EMOJIS.templates} Template Usage`,
-        "`,template save <name>` — save this server as a template (roles, channels, bots, emojis, stickers) *(Admin+)*\n" +
-        "`,template list` — view your saved templates *(Admin+)*\n" +
-        "`,template delete <name>` — permanently delete a saved template *(Admin+)*\n" +
-        "`,template load <name>` — load everything, replacing existing *(Owner only)*\n" +
-        "`,template load <name> roles` — replace roles only *(Owner only)*\n" +
-        "`,template load <name> roles,channels,stickers` — replace multiple categories at once *(Owner only)*\n" +
-        "`,template add <category> <name>` — **add** items without touching anything existing *(Admin+)*\n" +
-        "`,template add emojis,stickers <name>` — add multiple categories at once *(Admin+)*\n" +
-        "`,templatelink <name>` — share a template with a one-time link *(Owner only)*"
+        "`,template save <name>` — save this server as a template *(Admin, or granted access)*\n" +
+        "`,template list` — view your saved templates *(Admin, or granted access)*\n" +
+        "`,template delete <name>` — permanently delete a saved template *(Admin, or granted access)*\n" +
+        "`,template load <name> [roles,channels,bots,emojis,stickers]` — load, replacing existing *(Owner, or granted access)*\n" +
+        "`,template add <category> <name>` — **add** items without touching anything existing *(Admin, or granted access)*\n" +
+        "`,template grant <user>` / `,template revoke <user>` — delegate template access *(Owner only)*\n" +
+        "`,template access` — see who currently has granted access\n" +
+        "`,templatelink <name>` — share a template with a one-time link *(Owner, or granted access)*"
       )],
     });
   },
