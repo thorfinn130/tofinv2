@@ -446,6 +446,22 @@ client.on('guildMemberUpdate', async (oldMember, newMember) => {
   }
 });
 
+// ── Forced nicknames — revert if changed away from the locked value ──
+client.on("guildMemberUpdate", async (oldMember, newMember) => {
+  try {
+    if (oldMember.nickname === newMember.nickname) return; // nothing to do
+    const { getForced } = require("./services/forcedNickname");
+    const forced = getForced(newMember.guild.id, newMember.id);
+    if (!forced) return;
+    if (newMember.nickname === forced.nickname) return; // already matches (e.g. our own revert triggered this event)
+    const me = newMember.guild.members.me;
+    if (!me || me.roles.highest.comparePositionTo(newMember.roles.highest) <= 0) return; // can't act, bail quietly
+    await newMember.setNickname(forced.nickname, "Forced nickname re-applied").catch(() => {});
+  } catch (e) {
+    console.error("[forcedNickname] revert check failed:", e);
+  }
+});
+
 // ── Soft-nuke: mass permission-overwrite lockdown without deleting anything ──
 client.on('channelUpdate', async (oldChannel, newChannel) => {
   try {
