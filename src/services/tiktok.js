@@ -1,5 +1,8 @@
 const https = require("https");
 const http  = require("http");
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
 const { EmbedBuilder } = require("discord.js");
 const { saveGif } = require("./gifMemory");
 const { compressToFit } = require("../util/videoCompressor");
@@ -63,6 +66,30 @@ function downloadBuffer(url, redirects = 0) {
   });
 }
 
+// Streams the download straight to a temp file instead of buffering the
+// whole thing in memory first — matters for large videos, since without
+// this every download briefly held the entire file (sometimes 50-100MB+)
+// as a single Buffer before we even knew whether compression was needed.
+function downloadToFile(url, destPath, redirects = 0) {
+  return new Promise((resolve, reject) => {
+    if (redirects > 5) return reject(new Error("too many redirects"));
+    const proto = url.startsWith("https") ? https : http;
+    const req = proto.get(url, { headers: { "User-Agent": "TofinBot/1.0" } }, (res) => {
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        return downloadToFile(res.headers.location, destPath, redirects + 1).then(resolve).catch(reject);
+      }
+      if (res.statusCode >= 400) return reject(new Error(`HTTP ${res.statusCode}`));
+      const fileStream = fs.createWriteStream(destPath);
+      res.pipe(fileStream);
+      fileStream.on("finish", () => fileStream.close(() => resolve(destPath)));
+      fileStream.on("error", reject);
+      res.on("error", reject);
+    }).on("error", reject);
+    req.on("error", reject);
+    req.setTimeout(60000, () => { req.destroy(); reject(new Error("download timeout")); });
+  });
+}
+
 const MAX_BYTES = 8 * 1024 * 1024;
 
 async function handleTikTok(message) {
@@ -79,14 +106,21 @@ async function handleTikTok(message) {
       saveGif(message.guild.id, videoUrl);
     }
 
-    const buffer = await downloadBuffer(videoUrl);
+    const tmpPath = path.join(os.tmpdir(), `tt_${Date.now()}_${Math.random().toString(36).slice(2)}.mp4`);
+    await downloadToFile(videoUrl, tmpPath);
+    const downloadedSize = fs.statSync(tmpPath).size;
 
-    let finalBuffer = buffer;
-    if (finalBuffer.length > MAX_BYTES) {
-      finalBuffer = await compressToFit(finalBuffer, MAX_BYTES).catch((err) => {
+    let finalBuffer;
+    if (downloadedSize <= MAX_BYTES) {
+      finalBuffer = fs.readFileSync(tmpPath);
+      fs.unlink(tmpPath, () => {});
+    } else {
+      // compressToFit takes the file path directly — no extra buffer round trip.
+      finalBuffer = await compressToFit(tmpPath, MAX_BYTES).catch((err) => {
         console.error("[tiktok] compression failed", err.message);
         return null;
       });
+      fs.unlink(tmpPath, () => {});
     }
 
     if (!finalBuffer) {
@@ -133,10 +167,13 @@ async function fetchTikTokResult(url) {
     return { embed, buffer, fileName: "tiktok.mp4", isGif, mediaUrl: videoUrl };
   }
 
-  const compressed = await compressToFit(buffer, MAX_BYTES).catch((err) => {
+  const tmpPath = path.join(os.tmpdir(), `tt_${Date.now()}_${Math.random().toString(36).slice(2)}.mp4`);
+  fs.writeFileSync(tmpPath, buffer);
+  const compressed = await compressToFit(tmpPath, MAX_BYTES).catch((err) => {
     console.error("[tiktok] compression failed", err.message);
     return null;
   });
+  fs.unlink(tmpPath, () => {});
 
   if (compressed) {
     return { embed, buffer: compressed, fileName: "tiktok.mp4", isGif, mediaUrl: videoUrl };
