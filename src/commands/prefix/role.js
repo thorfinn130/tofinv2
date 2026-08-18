@@ -1,6 +1,7 @@
 const { PermissionFlagsBits, PermissionsBitField } = require("discord.js");
-const { success, danger, warn, info } = require("../../util/embed");
+const { danger, warn } = require("../../util/embed");
 const { EmbedBuilder } = require("discord.js");
+const { resolveRole, formatAmbiguous } = require("../../util/resolve");
 
 const VOICE_PERMS = [
   PermissionFlagsBits.Connect,
@@ -86,13 +87,18 @@ module.exports = {
       });
     }
 
-    const role = message.mentions.roles.first();
-    if (!role) {
+    // A preset name is a fixed, known keyword — find it wherever it appears,
+    // and treat everything else as the role query. This works whether the
+    // role comes first or last, and whether it's a mention, name, or typo.
+    const presetIdx = args.findIndex((a) => PRESETS[a.toLowerCase()]);
+    const roleQuery = args.filter((_, i) => i !== presetIdx).join(" ").trim();
+
+    if (!roleQuery) {
       return message.reply({
         embeds: [
           new EmbedBuilder()
             .setTitle("🏷️  Role Permission Presets")
-            .setDescription("**Usage:** `,role @role <preset>`")
+            .setDescription("**Usage:** `,role <role> <preset>`\nWorks with a role mention, name, or a close typo of one.")
             .addFields(
               {
                 name: "🔵  `trialmod_perm`",
@@ -129,20 +135,22 @@ module.exports = {
       });
     }
 
-    const presetKey = args[1]?.toLowerCase();
-    const preset = PRESETS[presetKey];
+    const roleResult = resolveRole(message.guild, roleQuery);
+    if (roleResult.status === "not_found") {
+      return message.reply({ embeds: [warn("Role Not Found", `Couldn't find a role matching \`${roleQuery}\`.`)] });
+    }
+    if (roleResult.status === "ambiguous") {
+      return message.reply({ content: formatAmbiguous(roleResult, "role"), allowedMentions: { users: [], repliedUser: false } });
+    }
+    const role = roleResult.match;
 
-    if (!preset) {
+    if (presetIdx === -1) {
       return message.reply({
-        embeds: [
-          warn(
-            "Unknown Preset",
-            `No preset \`${presetKey}\`.\n\n` +
-              "Available: `trialmod_perm` · `mod_perm` · `admin_perm` · `coowner_perm` · `every_perm`"
-          ),
-        ],
+        embeds: [warn("Missing Preset", "**Usage:** `,role <role> <preset>`\nAvailable: `trialmod_perm` · `mod_perm` · `admin_perm` · `coowner_perm` · `every_perm`")],
       });
     }
+    const presetKey = args[presetIdx].toLowerCase();
+    const preset = PRESETS[presetKey];
 
     try {
       await role.setPermissions(

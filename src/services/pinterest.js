@@ -1,7 +1,11 @@
 const https = require("https");
 const http = require("http");
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
 const { EmbedBuilder } = require("discord.js");
 const { saveGif } = require("./gifMemory");
+const { compressToFit } = require("../util/videoCompressor");
 
 // ── Replace with your custom emoji IDs ──
 const PINTEREST_EMOJI = "<:pinterest:1519108054208221226>";
@@ -185,6 +189,32 @@ function downloadBuffer(url, redirects = 0) {
   });
 }
 
+// Streams to a temp file instead of buffering in memory, and doesn't abort
+// early on size — used for video, where a too-big download can still be
+// saved by compression instead of just being thrown away.
+function downloadToFile(url, destPath, redirects = 0) {
+  return new Promise((resolve, reject) => {
+    if (redirects > 5) return reject(new Error("too many redirects"));
+    const proto = url.startsWith("https") ? https : http;
+    const request = proto.get(url, { headers: { "User-Agent": BROWSER_UA } }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400) {
+        const location = res.headers.location;
+        if (!location) return reject(new Error("Redirect without location"));
+        const nextUrl = location.startsWith("/") ? new URL(location, url).href : location;
+        res.resume();
+        return downloadToFile(nextUrl, destPath, redirects + 1).then(resolve).catch(reject);
+      }
+      if (res.statusCode >= 400) return reject(new Error(`HTTP ${res.statusCode}`));
+      const fileStream = fs.createWriteStream(destPath);
+      res.pipe(fileStream);
+      fileStream.on("finish", () => fileStream.close(() => resolve(destPath)));
+      fileStream.on("error", reject);
+      res.on("error", reject);
+    }).on("error", reject);
+    request.setTimeout(60000, () => { request.destroy(); reject(new Error("Download timeout")); });
+  });
+}
+
 async function handlePinterest(message) {
   let url = extractPinterestUrl(message.content);
   if (!url) return false;
@@ -255,11 +285,34 @@ async function handlePinterest(message) {
     if (isGif) saveGif(message.guild.id, mediaUrl);
 
     // ── Download media ──
-    const buffer = await downloadBuffer(mediaUrl);
-
-    if (buffer.length > MAX_BYTES) {
-      await message.reply({ content: `📌 File too large. View it here: ${mediaUrl}` });
-      return true;
+    // Video is streamed to disk (can be large) and compressed if it doesn't
+    // fit; images/gifs stay on the simple buffer path since they can't be
+    // meaningfully compressed the same way.
+    let buffer;
+    if (mediaType === "video" || fileName.endsWith(".mp4")) {
+      const tmpPath = path.join(os.tmpdir(), `pin_${Date.now()}_${Math.random().toString(36).slice(2)}.mp4`);
+      await downloadToFile(mediaUrl, tmpPath);
+      const size = fs.statSync(tmpPath).size;
+      if (size <= MAX_BYTES) {
+        buffer = fs.readFileSync(tmpPath);
+        fs.unlink(tmpPath, () => {});
+      } else {
+        buffer = await compressToFit(tmpPath, MAX_BYTES).catch((err) => {
+          console.error("[pinterest] compression failed", err.message);
+          return null;
+        });
+        fs.unlink(tmpPath, () => {});
+        if (!buffer) {
+          await message.reply({ content: `📌 File too large. View it here: ${mediaUrl}` });
+          return true;
+        }
+      }
+    } else {
+      buffer = await downloadBuffer(mediaUrl);
+      if (buffer.length > MAX_BYTES) {
+        await message.reply({ content: `📌 File too large. View it here: ${mediaUrl}` });
+        return true;
+      }
     }
 
     // Delete the original link message only once we have the final media ready to post.
@@ -347,9 +400,27 @@ async function fetchPinterestResult(rawUrl) {
 
   // (like/comment counts intentionally not displayed)
 
-  const buffer = await downloadBuffer(mediaUrl);
-  if (buffer.length > MAX_BYTES) {
-    return { embed, link: mediaUrl, isGif };
+  let buffer;
+  if (mediaType === "video" || fileName.endsWith(".mp4")) {
+    const tmpPath = path.join(os.tmpdir(), `pin_${Date.now()}_${Math.random().toString(36).slice(2)}.mp4`);
+    await downloadToFile(mediaUrl, tmpPath);
+    const size = fs.statSync(tmpPath).size;
+    if (size <= MAX_BYTES) {
+      buffer = fs.readFileSync(tmpPath);
+      fs.unlink(tmpPath, () => {});
+    } else {
+      buffer = await compressToFit(tmpPath, MAX_BYTES).catch((err) => {
+        console.error("[pinterest] compression failed", err.message);
+        return null;
+      });
+      fs.unlink(tmpPath, () => {});
+      if (!buffer) return { embed, link: mediaUrl, isGif };
+    }
+  } else {
+    buffer = await downloadBuffer(mediaUrl);
+    if (buffer.length > MAX_BYTES) {
+      return { embed, link: mediaUrl, isGif };
+    }
   }
 
   return { embed, buffer, fileName, isGif, mediaUrl };

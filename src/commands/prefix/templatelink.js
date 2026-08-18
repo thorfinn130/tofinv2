@@ -1,11 +1,12 @@
 const { generateLink, useLink, applyTemplate } = require("../../services/template");
+const { hasAccess } = require("../../services/templateAccess");
 const { success, info, danger, warn } = require("../../util/embed");
 
 module.exports = {
   name: "templatelink",
   async run(message, args) {
-    if (message.author.id !== message.guild.ownerId) {
-      return message.reply({ embeds: [danger("Owner Only", "Only the server owner can use template links.")] });
+    if (!hasAccess(message.guild, message.author.id)) {
+      return message.reply({ embeds: [danger("Owner Only", "Only the server owner (or someone they've granted access via `,template grant`) can use template links.")] });
     }
 
     const arg = args[0];

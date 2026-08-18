@@ -1,7 +1,11 @@
 const https = require("https");
 const http = require("http");
+const fs = require("fs");
+const os = require("os");
+const path = require("path");
 const { EmbedBuilder } = require("discord.js");
 const { saveGif } = require("./gifMemory");
+const { compressToFit } = require("../util/videoCompressor");
 
 // ── Replace with your custom emoji IDs ──
 const TWITTER_EMOJI = "<:twitter:1519108059757019357>";
@@ -66,6 +70,40 @@ function downloadBuffer(url, redirects = 0) {
 
 const MAX_BYTES = 25 * 1024 * 1024; // Increased to 25MB for better compatibility
 
+// Same headers/redirect handling as downloadBuffer, but streams straight to
+// a temp file instead of buffering in memory — used for video, where files
+// can be large enough that holding the whole thing in RAM is wasteful.
+function downloadToFile(url, destPath, redirects = 0) {
+  return new Promise((resolve, reject) => {
+    if (redirects > 5) return reject(new Error("too many redirects"));
+    const proto = url.startsWith("https") ? https : http;
+    const headers = {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+    };
+    if (url.includes("twimg.com") || url.includes("twitter.com")) {
+      headers["Referer"] = "https://twitter.com/";
+      headers["Origin"] = "https://twitter.com";
+    }
+    const req = proto.get(url, { headers }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400) {
+        const location = res.headers.location;
+        if (!location) return reject(new Error("Redirect without location"));
+        const nextUrl = location.startsWith("/") ? new URL(location, url).href : location;
+        res.resume();
+        return downloadToFile(nextUrl, destPath, redirects + 1).then(resolve).catch(reject);
+      }
+      if (res.statusCode >= 400) return reject(new Error(`HTTP ${res.statusCode}`));
+      const fileStream = fs.createWriteStream(destPath);
+      res.pipe(fileStream);
+      fileStream.on("finish", () => fileStream.close(() => resolve(destPath)));
+      fileStream.on("error", reject);
+      res.on("error", reject);
+    }).on("error", reject);
+    req.setTimeout(60000, () => { req.destroy(); reject(new Error("Download timeout")); });
+  });
+}
+
 // ── Main handler ──
 async function handleTwitter(message) {
   const url = extractTwitterUrl(message.content);
@@ -124,12 +162,34 @@ async function handleTwitter(message) {
     }
 
     // ── Download media ──
-    const buffer = await downloadBuffer(mediaUrl);
-    if (!buffer || buffer.length === 0) throw new Error("Empty download");
-
-    if (buffer.length > MAX_BYTES) {
-      // Too large – send link instead
-      return message.reply({ content: `📁 File too large. View it here: ${mediaUrl}` });
+    // Video can be large enough that buffering it fully in memory is
+    // wasteful, and unlike images, it can actually be compressed to fit
+    // instead of just giving up and linking out.
+    let buffer, fileNameOverride;
+    if (mediaType === "video") {
+      const tmpPath = path.join(os.tmpdir(), `tw_${Date.now()}_${Math.random().toString(36).slice(2)}.mp4`);
+      await downloadToFile(mediaUrl, tmpPath);
+      const size = fs.statSync(tmpPath).size;
+      if (size <= MAX_BYTES) {
+        buffer = fs.readFileSync(tmpPath);
+        fs.unlink(tmpPath, () => {});
+      } else {
+        buffer = await compressToFit(tmpPath, MAX_BYTES).catch((err) => {
+          console.error("[twitter] compression failed", err.message);
+          return null;
+        });
+        fs.unlink(tmpPath, () => {});
+        if (!buffer) {
+          return message.reply({ content: `📁 File too large. View it here: ${mediaUrl}` });
+        }
+      }
+      fileNameOverride = "twitter.mp4";
+    } else {
+      buffer = await downloadBuffer(mediaUrl);
+      if (!buffer || buffer.length === 0) throw new Error("Empty download");
+      if (buffer.length > MAX_BYTES) {
+        return message.reply({ content: `📁 File too large. View it here: ${mediaUrl}` });
+      }
     }
 
     // ── Determine file extension ──
@@ -143,7 +203,7 @@ async function handleTwitter(message) {
     else if (mediaUrl.includes(".png")) ext = "png";
     else if (mediaUrl.includes(".webp")) ext = "webp";
 
-    const fileName = `twitter.${ext}`;
+    const fileName = fileNameOverride || `twitter.${ext}`;
 
     // Delete the original link message only once we have the final media ready to post.
     await message.delete().catch(() => {});
@@ -209,11 +269,29 @@ async function fetchTwitterResult(url) {
   mediaUrl = mediaUrl.replace(/&amp;/g, "&");
   const embed = buildBaseEmbed();
 
-  const buffer = await downloadBuffer(mediaUrl);
-  if (!buffer || buffer.length === 0) throw new Error("Empty download.");
-
-  if (buffer.length > MAX_BYTES) {
-    return { embed, link: mediaUrl, isGif };
+  let buffer, fileNameOverride;
+  if (mediaType === "video") {
+    const tmpPath = path.join(os.tmpdir(), `tw_${Date.now()}_${Math.random().toString(36).slice(2)}.mp4`);
+    await downloadToFile(mediaUrl, tmpPath);
+    const size = fs.statSync(tmpPath).size;
+    if (size <= MAX_BYTES) {
+      buffer = fs.readFileSync(tmpPath);
+      fs.unlink(tmpPath, () => {});
+    } else {
+      buffer = await compressToFit(tmpPath, MAX_BYTES).catch((err) => {
+        console.error("[twitter] compression failed", err.message);
+        return null;
+      });
+      fs.unlink(tmpPath, () => {});
+      if (!buffer) return { embed, link: mediaUrl, isGif };
+    }
+    fileNameOverride = "twitter.mp4";
+  } else {
+    buffer = await downloadBuffer(mediaUrl);
+    if (!buffer || buffer.length === 0) throw new Error("Empty download.");
+    if (buffer.length > MAX_BYTES) {
+      return { embed, link: mediaUrl, isGif };
+    }
   }
 
   let ext = "jpg";
@@ -226,7 +304,7 @@ async function fetchTwitterResult(url) {
   else if (mediaUrl.includes(".png")) ext = "png";
   else if (mediaUrl.includes(".webp")) ext = "webp";
 
-  return { embed, buffer, fileName: `twitter.${ext}`, isGif, mediaUrl };
+  return { embed, buffer, fileName: fileNameOverride || `twitter.${ext}`, isGif, mediaUrl };
 }
 
 module.exports = { handleTwitter, extractTwitterUrl, fetchTwitterResult };
